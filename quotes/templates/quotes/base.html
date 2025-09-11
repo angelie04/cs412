@@ -1,0 +1,21 @@
+<!-- Holds the content that is repeated on everypage -->
+{% load static %}
+<html>
+    <head>
+        <title>Hellow, World</title>
+        <link rel = "stylesheet" href = "{% static 'styles.css' %}">
+    </head>
+    <body>
+        <nav>
+            <li><a href = "{% url 'main_page' %}"> Home </a></li>
+            <li><a href = "{% url 'about_page' %}"> About </a> </li>
+            <li><a href = "{% url 'all_quotes' %}"> All Quotes</a> </li>
+        </nav>
+        <!-- put specific content here -->
+         {% block content %} 
+         {% endblock %}
+       <footer>
+        Designed by Angelie Darbouze (angelie@bu.edu)
+       </footer>
+    </body>
+</html>

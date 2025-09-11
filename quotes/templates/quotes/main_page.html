@@ -1,0 +1,12 @@
+{%extends "quotes/base.html" %}
+
+{% block content %}
+    <h1> Issa Rae</h1>
+    <h3>Quote of the Day</h3>
+    <div class="quote-section" style="text-align:center;">
+        <img src="{{ image }}" alt="Issa Rae" style="max-width:300px; border-radius:16px; margin-bottom:20px;">
+        <blockquote style="font-size:1.3em; margin:20px auto; color:#7b3f7b;">
+            "{{ quote }}"
+        </blockquote>
+    </div>
+{% endblock %}
