@@ -1,8 +1,15 @@
+<!-- File: show_all.py -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 9/12/2025 -->
+<!-- Description: This file shows all quotes and images by the show_all view.
+    It allows users to see the complete collection featured in the application.
+-->
+
 {%extends "quotes/base.html" %}
 
 {% block content %}
    <h1>All Quotes</h1>
        <ul>
+        <!-- Loops through all quotes ad displays them -->
         {% for quote in quotes %}
             <li style="margin-bottom: 16px;">
                 <blockquote style="font-size: 1.1em; color: #7b3f7b;">
@@ -12,6 +19,7 @@
         {% endfor %}
     </ul>
     <h1>All Images</h1>
+            <!-- Loops through all images ad displays them -->
     <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
         {% for image in images %}
             <img src="{{ image }}" alt="Issa Rae" style="max-width: 220px; border-radius: 12px;">

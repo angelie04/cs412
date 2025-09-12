@@ -1,3 +1,7 @@
+# File: views.py
+# Author: Angelie Darbouze (angelie@bu.edu), 9/12/2025
+# Description: Services each URL pattern, generates context data, and delegates presentation to the appropriate HTML template.
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 import random
@@ -16,6 +20,7 @@ IMAGES =[
 
 ]
 def main_page(req):
+    """ Creates the main page with random quotes and image. """
     template_name = 'quotes/main_page.html'
     quote = random.choice(QUOTES)
     image = random.choice(IMAGES)
@@ -26,10 +31,12 @@ def main_page(req):
     return render(req,template_name, context)
 
 def about_page(req):
+    """ Creates the about page. """
     template_name = 'quotes/about.html'
     return render(req,template_name)
 
 def show_all(req):
+    """ Creates a page displaying all quotes and images. """
     template_name = 'quotes/show_all.html'
     context = {
         'quotes': QUOTES,
