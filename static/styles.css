@@ -4,7 +4,7 @@ body {
     font-family: arial;
 }
 
-h1,h2,h3,h4,h5{
+h1,h4,h5{
     font-weight: normal;
     background:rgb(229, 187, 211,0.5);
     font-family: Copperplate, Papyrus, fantasy;
@@ -82,10 +82,13 @@ div.wrapper h1 {
 }
 
 div.wrapper h2 {
-    text-align: left;
-    color: rgb(217, 179, 246);
-    margin: 5px auto;
-    font-size: 2 em; 
+    background: none;
+    border-radius: 0;
+    text-align: center;
+    font-size: 2em;      /* Bigger font than h3 */
+    font-family: inherit; /* Or set to your preferred font */
+    margin: 10px auto;
+    font-weight: normal;
 }
 
 

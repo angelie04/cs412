@@ -1,0 +1,43 @@
+<!-- File: form.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 9/16/2025 -->
+<!-- Description: This template displays a form for submitting restaurant data. -->
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+<div>
+    <h3> Place an Order</h3>
+    <form action="{% url 'submit' %}" method="POST">
+        {% csrf_token %}
+        <h3 style="text-align:left;"> Menu </h3>
+        <div style="text-align:left;">
+            <input type="checkbox" name="cupcake" value="Brooklyn Blackout Cupcake $5"> Brooklyn Blackout Cupcake $5<br>
+            <input type="checkbox" name="cupcake" value="Red Velvet Cupcake $5"> Red Velvet Cupcake $5<br>
+            <input type="checkbox" name="cupcake" value="Golden Vanilla Cupcake $5"> Golden Vanilla Cupcake $5<br>
+            <input type="checkbox" name="cupcake" value="Carrot Cupcake $5"> Carot Cupcake $5<br>
+            <input type="checkbox" name="cupcake" value="Golden Chocolate Cupcake $5"> Golden Chocolate Cupcake $5<br>
+            <p></p>
+        </div>
+        <h3 style="text-align:left;"> Extras </h3>
+        <div style="text-align:left;">
+            <input type="checkbox" name="cupcake" value="Milk $2.50"> Cup of Milk $2.50<br>
+            <p></p>
+        </div>
+        <h3 style="text-align:left;"> Today's special </h3>
+        <input type="checkbox" name="cupcake" value=" {{special}}"> {{ special }}<br>
+        <p></p>
+        <h3 style="text-align:left;"> Special Instructions </h3>
+        <textarea name="instructions" rows="4" cols="50" placeholder="Any special instructions?"></textarea>
+        <p></p>
+        <h3 style="text-align:left;"> Contact Information </h3>
+        Name: <input type="text" name="name"> <br>
+        <p></p>
+        Phone: <input type="text" name="phone"> <br>
+        <p></p>
+        Email: <input type="text" name="email"> <br>
+        <p></p>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+
+{% endblock %}

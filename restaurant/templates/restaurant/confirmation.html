@@ -1,0 +1,25 @@
+<!-- restaurant/templates/restaurant/confirmation.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 9/16/2025 -->
+<!-- Description: This produces the confirmation page of a successful order!-->
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+<div>
+    <h3> Thank you for your order! </h3>
+    <p> Your order will be ready at: {{ ready_time }} </p>
+    <p><strong>Items ordered:</strong></p>
+    <ul>
+        {% for cupcake in cupcakes %}
+        <li>{{ cupcake }}</li>
+        {% empty %}
+        <li>No items ordered.</li>
+        {% endfor %}
+    </ul>
+    <p><strong>Special Instructions:</strong> {{ instructions }}</p>
+    <p><strong>Contact Information:</strong></p>
+    <p> {{ name }}</p>
+    <p> {{ phone }}</p>
+    <p> {{ email }}</p>
+    <h3>Total: ${{ total }}</h3>
+</div>
+{% endblock %}
