@@ -1,3 +1,6 @@
+/* File: static/styles-mini_insta.css */
+/* Author: Angelie Darbouze (angelie@bu.edu), 9/25/2025 */
+/* Css styling for mini_insta web application */
 /* Base styles */
 body {
   margin: 0;
@@ -10,7 +13,11 @@ h1, h2, h3 {
   font-weight: normal;
   font-family: Copperplate, Papyrus, fantasy;
 }
-
+a {
+  color: #a13163;
+  text-decoration: none;
+  
+}
 /* Container for the homepage */
 .home-container {
   display: flex;

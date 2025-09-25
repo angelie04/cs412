@@ -1,23 +1,25 @@
-<!-- mini_insta/show_all.html -->
+<!-- File: mini_insta/show_all.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 9/25/2025 -->
+<!-- Description: Is the home page that showcases all profiles that have been created -->
 {% extends 'mini_insta/base.html' %}
 
 {% block content %}
 <h2> All profiles</h2>
 
-<!-- {{ articles }} -->
-
 <main class="home-container">
+    <!-- loops through all created profiles and displays their name and username -->
     {% for profile in profiles %}
     <article>
         <div>
             <h2>{{ profile.display_name }}</h2>
             <h3> {{ profile.username }}</h3>
         </div>
-
-        <img src="{{ profile.profile_image_url }}" alt="Article Image" style="max-width: 300px; max-height: 300px;" />
-
+        <!-- This href creates a link that directs the user to an individual profile page -->
+        <a href="{% url 'show_profile' profile.pk %}">
+            <img src="{{ profile.profile_image_url }}" alt="Article Image"
+                style="max-width: 300px; max-height: 300px;" />
+        </a>
     </article>
-
     {% endfor %}
 </main>
 {% endblock %}
