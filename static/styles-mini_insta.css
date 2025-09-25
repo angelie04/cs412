@@ -1,0 +1,89 @@
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #ffe4ec;
+  color: #333;
+}
+h1, h2, h3 {
+  color: #000000;
+  font-weight: normal;
+  font-family: Copperplate, Papyrus, fantasy;
+}
+
+/* Container for the homepage */
+.home-container {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  padding: 2rem;
+  gap: 2rem;
+}
+
+/* Profile Picture styling */
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Profile page container */
+.profile-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile header */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Large profile pic on profile view */
+.profile-pic-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #e0bbff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile name */
+.profile-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #a64ca6;
+}
+
+/* Light purple buttons */
+.button {
+  background-color: #e0bbff;
+  border: none;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #d19eff;
+}

@@ -1,0 +1,23 @@
+<!-- mini_insta/show_all.html -->
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h2> All profiles</h2>
+
+<!-- {{ articles }} -->
+
+<main class="home-container">
+    {% for profile in profiles %}
+    <article>
+        <div>
+            <h2>{{ profile.display_name }}</h2>
+            <h3> {{ profile.username }}</h3>
+        </div>
+
+        <img src="{{ profile.profile_image_url }}" alt="Article Image" style="max-width: 300px; max-height: 300px;" />
+
+    </article>
+
+    {% endfor %}
+</main>
+{% endblock %}

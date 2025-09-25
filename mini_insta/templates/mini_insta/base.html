@@ -4,24 +4,21 @@
 <html>
 
 <head>
-    <title> Mini Insta</title>
+    <title> Mini Insta </title>
     <link rel="stylesheet" type="text/css" href="{% static 'styles-mini_insta.css' %}">
 </head>
 
 <body>
 
     <head>
-        <h1> Mini insta</h1>
-        <nav>
-            <ul>
-                <li> <a href= "{% url 'random' %}"> Random</a></li>
-                <li> <a href= "{% url 'show_all' %}"> Show All</a></li>
-            </ul>
-        </nav>
+        <h1><strong> Mini insta </strong></h1>
     </head>
     <!-- subsitute specific content here -->
     {% block content %}
     {% endblock %}
 </body>
+<footer>
+    Page created by angelie@bu.edu
+</footer>
 
 </html>

@@ -5,12 +5,12 @@ from .models import Profile
 import random
 # Create your views here.
 
-# class ShowAllView(ListView):
-#     """DEfine a view class to show all blog articles"""
-#     model = Profile
-#     template_name = 'mini_insta/show_all.html'
-#     context_object_name = 'articles'
-    # ordering = ['-published']
+class ProfileListView(ListView):
+    """Define a view class to show all blog articles"""
+    model = Profile
+    template_name = 'mini_insta/show_all_profiles.html'
+    context_object_name = 'profiles' # note plural variable name
+    ordering = ['-join_date'] # show most recent articles first
 
 # class ArticleView(DetailView):
 #     """Define a view class to show a single blog article"""
