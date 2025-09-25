@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "quotes", 
     "restaurant", # new app
+    "mini_insta", # new app
 ]
 
 MIDDLEWARE = [

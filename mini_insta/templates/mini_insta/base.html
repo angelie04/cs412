@@ -1,0 +1,27 @@
+<!-- mini_insta/base.html -->
+{% load static %}
+
+<html>
+
+<head>
+    <title> Mini Insta</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles-mini_insta.css' %}">
+</head>
+
+<body>
+
+    <head>
+        <h1> Mini insta</h1>
+        <nav>
+            <ul>
+                <li> <a href= "{% url 'random' %}"> Random</a></li>
+                <li> <a href= "{% url 'show_all' %}"> Show All</a></li>
+            </ul>
+        </nav>
+    </head>
+    <!-- subsitute specific content here -->
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>

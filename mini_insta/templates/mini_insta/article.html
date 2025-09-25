@@ -1,0 +1,19 @@
+<!-- mini_insta/article.html -->
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h1> {{article.title}}</h1>
+
+<!-- {{ articles }} -->
+
+<main class="grid-container">
+    <article>
+        <div>
+            <h2>{{ article.title }}</h2>
+            <h3> By: {{ article.author }}</h3>
+            <p>{{article.text}}</p>
+        </div>
+        <img src="{{ article.image_url }}" alt="Article Image" style="max-width: 300px; max-height: 300px;" />
+    </article>
+</main>
+{% endblock %}

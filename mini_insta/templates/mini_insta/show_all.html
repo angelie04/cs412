@@ -1,0 +1,25 @@
+<!-- mini_insta/show_all.html -->
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h1> Showing all articles</h1>
+
+<!-- {{ articles }} -->
+
+<main class="grid-container">
+    {% for article in articles %}
+    <article>
+        <div>
+            <h2>{{ article.title }}</h2>
+            <h3> By: {{ article.author }}</h3>
+            <p>{{article.text}}</p>
+        </div>
+        <a href="{% url 'article' article.pk %}">
+            <img src="{{ article.image_url }}" alt="Article Image" style="max-width: 300px; max-height: 300px;" />
+        </a>
+    </article>
+    <hr>
+
+    {% endfor %}
+</main>
+{% endblock %}
