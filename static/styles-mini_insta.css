@@ -31,7 +31,7 @@ a {
 .profile-pic {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: 50%; 
   object-fit: cover;
   border: 4px solid white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -78,7 +78,19 @@ a {
   font-weight: bold;
   color: #a64ca6;
 }
-
+/*  images post */
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.post-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
 /* Light purple buttons */
 .button {
   background-color: #e0bbff;

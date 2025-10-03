@@ -2,6 +2,8 @@
 <!-- Author: Angelie Darbouze (angelie@bu.edu), 9/25/2025 -->
 <!-- Description: This template renders a profile page for a single Profile record. It displays a larger profile image, user information, and placeholders for followers, following, and posts. -->
 {% extends 'mini_insta/base.html' %}
+{% load static %}
+
 
 {% block content %}
 <div class="profile-container">
@@ -21,7 +23,31 @@
     </div>
     <div class="profile-posts">
         <h2>Posts</h2>
-        <p>[No posts yet]</p>
+        <h3><a href="{% url 'create_comment' profile.pk %}">Create a New Comment (change to post)</a></h3>
+        <!-- display the users posts here, for now we are diplaying comments -->
+        <!-- {{profile.get_all_comments}} -->
+        {% for post in profile.get_all_posts %}
+        <div>
+            {% with photos=post.get_all_photos %}
+            {% if photos|length %}
+            <a href="{% url 'show_post' post.pk %}">
+                <img src="{{ photos.0.image_url }}" alt="Post Image" class="post-image">
+            </a>
+            {% else %}
+            <img src="{% static 'no-image.png' %}" alt="No Image Available" class="post-photo">
+            {% endif %}
+            {% endwith %}
+            <p>{{ post.caption }}</p>
+        </div>
+        {% empty %}
+        <p>No posts available.</p>
+        {% endfor %}
+        {% for comment in profile.get_all_comments %}
+        <div>
+            <strong> by {{ comment.author }}:</strong>
+            <p>{{ comment.text }}</p>
+        </div>
+        {% endfor %}
     </div>
     <div>
         Joined on: {{ profile.join_date }}

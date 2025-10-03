@@ -1,0 +1,26 @@
+<!-- File: show_post.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 9/25/2025 -->
+<!-- Description: This template renders a post page for a single Post record. It displays the post image, caption, and comments. -->
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+<div class="post-container">
+    <div class="post-header">
+    </div>
+    <div class="post-gallery">
+        {% with photos=post.get_all_photos %}
+        {% if photos|length %}
+        {% for photo in photos %}
+        <img src="{{ photo.image_url }}" alt="Post Photo" class="post-image">
+        {% endfor %}
+        {% else %}
+        <img src="{% static 'images/no-image.png' %}" alt="No Image Available" class="post-image">
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div class="post-caption">
+        <p><strong>{{ post.caption }}</strong></p>
+        <p> {{ post.timestamp }}</p>
+    </div>
+</div>
+{% endblock %}
