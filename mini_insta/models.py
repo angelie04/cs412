@@ -1,5 +1,5 @@
 # File: mini_insta/models.py
-# Author: Angelie Darbouze (angelie@bu.edu), 9/25/2025
+# Author: Angelie Darbouze (angelie@bu.edu), 10/1/2025
 # Description: Defines data models for the mini_insta application
 from django.db import models
 from django.urls import reverse
@@ -17,7 +17,7 @@ class Profile(models.Model):
         """ return a string representation of the Profile model"""
         return self.display_name
 
-    def get_absolute_url(self): #might not need this
+    def get_absolute_url(self): 
         """ returns the URL to access a particular profile instance"""
         return reverse('show_profile', kwargs={'pk': self.pk})
     
@@ -26,19 +26,6 @@ class Profile(models.Model):
         # use object manager to retrieve posts about this profile
         posts = Post.objects.filter(profile=self)
         return posts
-
-class Comment(models.Model):
-    """ models the data attributes of a comment on a profile"""
-
-    #data attributes for a comment
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    text = models.TextField(blank=False)
-    published = models.DateTimeField(auto_now=True)
-    author = models.TextField(blank=False)
-
-    def __str__(self):
-        """ return a string representation of the Comment model"""
-        return f' {self.text}' 
     
 class Post(models.Model):
     """ models the data attributes of a post on a profile"""

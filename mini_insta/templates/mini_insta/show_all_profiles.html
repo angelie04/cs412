@@ -1,10 +1,9 @@
-<!-- File: mini_insta/show_all.html -->
-<!-- Author: Angelie Darbouze (angelie@bu.edu), 9/25/2025 -->
+<!-- File: mini_insta/show_all_profiles.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 10/1/2025 -->
 <!-- Description: Is the home page that showcases all profiles that have been created -->
 {% extends 'mini_insta/base.html' %}
 
 {% block content %}
-<h2> All profiles</h2>
 
 <main class="home-container">
     <!-- loops through all created profiles and displays their name and username -->
@@ -21,5 +20,8 @@
         </a>
     </article>
     {% endfor %}
+    <nav class="bottom-nav">
+        <a href="{% url 'create_profile' %}" class="create-profile-link"><strong>Create Profile 👤</strong></a>
+    </nav>
 </main>
 {% endblock %}

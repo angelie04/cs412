@@ -21,19 +21,20 @@
         <p><strong>Followers:</strong> [No followers yet]</p>
         <p><strong>Following:</strong> [No following yet]</p>
     </div>
+    
     <div class="profile-posts">
         <h2>Posts</h2>
-        <h3><a href="{% url 'create_comment' profile.pk %}">Create a New Comment (change to post)</a></h3>
-        <!-- display the users posts here, for now we are diplaying comments -->
-        <!-- {{profile.get_all_comments}} -->
+        <!-- display the users posts here-->
         {% for post in profile.get_all_posts %}
         <div>
             {% with photos=post.get_all_photos %}
             {% if photos|length %}
+            <!-- Display the first photo of the post -->
             <a href="{% url 'show_post' post.pk %}">
                 <img src="{{ photos.0.image_url }}" alt="Post Image" class="post-image">
             </a>
             {% else %}
+            <!-- If there are no photos, display a placeholder image -->
             <img src="{% static 'no-image.png' %}" alt="No Image Available" class="post-photo">
             {% endif %}
             {% endwith %}
@@ -42,15 +43,11 @@
         {% empty %}
         <p>No posts available.</p>
         {% endfor %}
-        {% for comment in profile.get_all_comments %}
-        <div>
-            <strong> by {{ comment.author }}:</strong>
-            <p>{{ comment.text }}</p>
-        </div>
-        {% endfor %}
     </div>
+
     <div>
         Joined on: {{ profile.join_date }}
     </div>
+
 </div>
 {% endblock %}

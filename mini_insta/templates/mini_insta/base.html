@@ -16,11 +16,16 @@
     <head>
         <!-- link for the header text, so that users can always go back to home page if needed -->
         <h1> <a href="{% url 'show_all_profiles' %}"><strong> Mini insta </strong></a></h1>
-        <h2><a href="{% url 'create_profile' %}">Create a New Profile</a></h2>
     </head>
     <!-- subsitute specific content here -->
     {% block content %}
     {% endblock %}
+    <!-- Bottom navigation: show Create Post link only if a profile is present in the context -->
+    {% if profile %}
+    <nav class="bottom-nav">
+        <a href="{% url 'create_post' profile.pk %}" class="create-post-link"><strong>Create Post 💬</strong></a>
+    </nav>
+    {% endif %}
 </body>
 <footer>
     Page created by angelie@bu.edu

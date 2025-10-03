@@ -1,0 +1,26 @@
+<!-- create_post_form.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 10/1/2025 -->
+<!-- Description: This template renders a form to create a new post for a specific profile -->
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h1>Create a New Post about {{ profile.display_name }}</h1>
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+        <!-- define a table row -->
+        <tr>
+            <!-- manually adding a table row with an input feild for the photos -->
+            <th> <label for="id_image_url">Image URL:</label></th>
+            <td> <input type="url" name="image_url" id="id_image_url"></td>
+        </tr>
+    </table>
+    <!-- cancel and create post buttons -->
+    <button>
+        <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
+    </button>
+    <button type="submit">Create Post</button>
+
+</form>
+{% endblock %}

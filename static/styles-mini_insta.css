@@ -106,3 +106,13 @@ a {
 .button:hover {
   background-color: #d19eff;
 }
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #ffe4ec;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  padding: 1rem 0;
+}
