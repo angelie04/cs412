@@ -9,4 +9,5 @@ urlpatterns = [
      path('profile/create', ProfileCreateView.as_view(), name='create_profile'), # for the create profile page
      path('post/<int:pk>', PostDetailView.as_view(), name='show_post'), # for the individual post page
      path('profile/<int:pk>/create_post/', CreatePostView.as_view(), name='create_post'), # for the create post page
+     path ('profile/<int:pk>/update', UpdateProfileView.as_view(), name='update_profile'), # for the update profile page
 ]

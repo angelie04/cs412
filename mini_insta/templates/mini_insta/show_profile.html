@@ -21,7 +21,7 @@
         <p><strong>Followers:</strong> [No followers yet]</p>
         <p><strong>Following:</strong> [No following yet]</p>
     </div>
-    
+
     <div class="profile-posts">
         <h2>Posts</h2>
         <!-- display the users posts here-->
@@ -31,7 +31,7 @@
             {% if photos|length %}
             <!-- Display the first photo of the post -->
             <a href="{% url 'show_post' post.pk %}">
-                <img src="{{ photos.0.image_url }}" alt="Post Image" class="post-image">
+                <img src="{{ photos.0.get_image_url }}" alt="Post Image" class="post-image">
             </a>
             {% else %}
             <!-- If there are no photos, display a placeholder image -->
@@ -44,10 +44,10 @@
         <p>No posts available.</p>
         {% endfor %}
     </div>
-
+    <div> <button><a href="{% url 'update_profile' profile.pk %}"><strong> Edit Profile</strong></a></button></div>
     <div>
         Joined on: {{ profile.join_date }}
     </div>
-
+    <!-- Profile.get_all_posts.count (this is a scriptlet code  )-->
 </div>
 {% endblock %}

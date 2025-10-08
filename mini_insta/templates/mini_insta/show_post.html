@@ -12,8 +12,8 @@
         {% with photos=post.get_all_photos %}
         {% if photos|length %}
         {% for photo in photos %}
-        <!-- display the photos -->
-        <img src="{{ photo.image_url }}" alt="Post Photo" class="post-image">
+        <!-- call the get_image_url method to display the photos -->
+        <img src="{{ photo.get_image_url }}" alt="Post Photo" class="post-image">
         {% endfor %}
         {% else %}
         <img src="{% static 'images/no-image.png' %}" alt="No Image Available" class="post-image">
@@ -27,8 +27,8 @@
     </div>
     <!-- Back to Profile Link -->
     <div class="back-link">
-        <a href="{% url 'show_profile' post.profile.pk %}" style="color: #564168;"><strong>Back to
-                Profile 🔙</strong></a>
+        <button><a href="{% url 'show_profile' post.profile.pk %}" style="color: #564168;"><strong>Back to
+                    Profile 🔙</strong></a></button>
     </div>
 </div>
 {% endblock %}

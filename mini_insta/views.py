@@ -2,7 +2,7 @@
 # Author: Angelie Darbouze (angelie@bu.edu), 10/1/2025
 # Description: Defines the view classes for the mini_insta app
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import *
 from .forms import *
 from django.urls import reverse
@@ -73,15 +73,28 @@ class CreatePostView(CreateView): # new
         # Save the new Post object to the database
         post = form.save()
          # Retrieve the image_url from the POST data.
-        image_url = self.request.POST.get('image_url', None)
-        if image_url:
-            # Create and save a Photo instance with the new Post as its foreign key.
-            Photo.objects.create(post=post, image_url=image_url)
+        # image_url = self.request.POST.get('image_url', None)
+        # if image_url:
+        #     # Create and save a Photo instance with the new Post as its foreign key.
+        #     Photo.objects.create(post=post, image_url=image_url)
+        files = self.request.FILES.getlist('files')
+        for file in files:
+            Photo.objects.create(post=post, image_file=file)
         
         return super().form_valid(form)
     
     def get_success_url(self):
         """ after successfully creating a post, return to the post detail page"""
         # get the profile pk from the URL
-        pk = self.kwargs['pk']
         return reverse('show_post', kwargs={'pk': self.object.pk})
+    
+class UpdateProfileView(UpdateView): # new
+    """This view class updates an existing profile
+    (1) display the HTML form to user (GET)
+    (2) process the form submission and store the updated profile object (POST)
+    """
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'mini_insta/update_profile_form.html'
+
+    
