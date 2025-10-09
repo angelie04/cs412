@@ -6,6 +6,11 @@
 {% block content %}
 
 <div class="post-container">
+    <!-- Back to Profile Link -->
+    <div class="back-link">
+        <button><a href="{% url 'show_profile' post.profile.pk %}" style="color: #564168;"><strong>Back to
+                    Profile 🔙</strong></a></button>
+    </div>
     <div class="post-header">
     </div>
     <div class="post-gallery">
@@ -25,10 +30,9 @@
         <p><strong>{{ post.caption }}</strong></p>
         <p> Created: {{ post.timestamp }}</p>
     </div>
-    <!-- Back to Profile Link -->
-    <div class="back-link">
-        <button><a href="{% url 'show_profile' post.profile.pk %}" style="color: #564168;"><strong>Back to
-                    Profile 🔙</strong></a></button>
-    </div>
+    <!-- link to delete this post  -->
+    <button><a href="{% url 'delete_post' post.pk %}"><strong>Delete Post</strong></a></button>
+    <!-- link to update this post  -->
+    <button><a href="{% url 'update_post' post.pk %}"><strong>Update Post</strong></a></button>
 </div>
 {% endblock %}

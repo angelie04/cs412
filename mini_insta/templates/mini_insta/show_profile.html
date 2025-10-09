@@ -16,6 +16,8 @@
             <p>{{ profile.bio_text }}</p>
         </div>
     </div>
+    <div> <button><a href="{% url 'update_profile' profile.pk %}" style="color: #564168;"><strong> Edit
+                    Profile</strong></a></button></div>
     <!-- these different classes help with css styling -->
     <div class="profile-details">
         <p><strong>Followers:</strong> [No followers yet]</p>
@@ -44,7 +46,6 @@
         <p>No posts available.</p>
         {% endfor %}
     </div>
-    <div> <button><a href="{% url 'update_profile' profile.pk %}"><strong> Edit Profile</strong></a></button></div>
     <div>
         Joined on: {{ profile.join_date }}
     </div>

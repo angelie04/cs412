@@ -1,0 +1,22 @@
+<!-- File: update_post_form.html -->
+<!-- Author: Angelie Darbouze (angelie@bu,edu), 10/8/2025 -->
+<!-- Description: This template renders a form to update an existing post -->
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Update Post</h1>
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button>
+        <a href="{% url 'show_post' post.pk %}">Cancel</a>
+    </button>
+    <!-- redirected to show_post detail page -->
+    <button type="submit" value="Update" name="Update">Update</button>
+
+</form>
+
+{% endblock %}

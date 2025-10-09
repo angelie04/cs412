@@ -1,0 +1,21 @@
+<!-- File: delete_post_form.html -->
+<!-- Author: Angelie Darbouze (angelie@bu,edu), 10/8/2025 -->
+<!-- Description: This template renders a confirmation form to delete an existing post -->
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h1>Delete Post?</h1>
+<p>Are you sure you want to delete this post? <strong>{{ post.caption }}</strong></p>
+<div class="delete-buttons">
+    <!-- want to cancel the process of deleting post -->
+    <form action="{% url 'show_profile' post.profile.pk %}" method="GET">
+        <button type="submit" style="color: #a13163;">Cancel</button>
+    </form>
+    <!-- confirm delete post -->
+    <form action="{% url 'delete_post' post.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+    </form>
+
+</div>
+{% endblock %}

@@ -116,3 +116,8 @@ a {
   text-align: center;
   padding: 1rem 0;
 }
+.delete-buttons {
+    display: flex;
+    gap: 1em; /* space between the forms */
+    margin-top: 1em;
+}

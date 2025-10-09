@@ -2,7 +2,7 @@
 # Author: Angelie Darbouze (angelie@bu.edu), 10/1/2025
 # Description: Defines the view classes for the mini_insta app
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import *
 from .forms import *
 from django.urls import reverse
@@ -97,4 +97,50 @@ class UpdateProfileView(UpdateView): # new
     form_class = UpdateProfileForm
     template_name = 'mini_insta/update_profile_form.html'
 
+class DeletePostView(DeleteView):
+    """This view class deletes an existing post
+    (1) display the HTML form to user (GET)
+    (2) process the form submission and delete the post object (POST)
+    """
+    model = Post
+    template_name = 'mini_insta/delete_post_form.html'
+
+    def get_context_data(self, **kwargs):
+        """Add the post and its profile to the context."""
+        
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()  # the post to be deleted
+        context['post'] = post
+        context['profile'] = post.profile
+        return context
     
+    def get_success_url(self):
+        """ after successfully deleting a post, return to the profile detail page"""
+    
+        pk = self.kwargs['pk']  #find pk for this post 
+        post = Post.objects.get(pk=pk) #find the post object
+        profile_pk = post.profile.pk  # get the profile pk from the post object
+        return reverse('show_profile', kwargs={'pk': profile_pk})
+
+class UpdatePostView(UpdateView):
+    """This view class updates an existing post
+    (1) display the HTML form to user (GET)
+    (2) process the form submission and store the updated post object (POST)
+    """
+    model = Post
+    form_class = CreatePostForm
+    template_name = 'mini_insta/update_post_form.html'
+
+    def get_context_data(self, **kwargs):
+        """Add the post to the context."""
+
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()  
+        context['post'] = post
+        return context
+    
+    def get_success_url(self):
+        """ after successfully updating a post, return to the post detail page"""
+
+        pk = self.kwargs['pk']  #find pk for this post 
+        return reverse('show_post', kwargs={'pk': pk})
