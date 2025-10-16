@@ -1,0 +1,22 @@
+<!-- File: show_following.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu) -->
+<!-- Description:  Gives the profiles that a given Profile is following -->
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h1>{{ profile.display_name }}'s Following</h1>
+
+<div class="following">
+    {% if profile.get_following %}
+    <ul>
+        {% for followed_profile in profile.get_following %}
+        <li>
+            <a href="{% url 'show_profile' followed_profile.pk %}">{{ followed_profile.display_name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Not following anyone yet!</p>
+    {% endif %}
+</div>
+{% endblock %}

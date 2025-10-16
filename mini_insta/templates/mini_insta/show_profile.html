@@ -20,12 +20,14 @@
                     Profile</strong></a></button></div>
     <!-- these different classes help with css styling -->
     <div class="profile-details">
-        <p><strong>Followers:</strong> [No followers yet]</p>
-        <p><strong>Following:</strong> [No following yet]</p>
+        <p><strong>Followers:</strong> <a href="{% url 'show_followers' profile.pk %}">
+                {{ profile.get_num_followers }}</a></p>
+        <p><strong>Following:</strong> <a href="{% url 'show_following' profile.pk %}">
+                {{ profile.get_num_following }}</a></p>
     </div>
 
     <div class="profile-posts">
-        <h2>Posts</h2>
+        <h2> {{ profile.get_post_count }} Post(s)</h2>
         <!-- display the users posts here-->
         {% for post in profile.get_all_posts %}
         <div>
@@ -49,6 +51,5 @@
     <div>
         Joined on: {{ profile.join_date }}
     </div>
-    <!-- Profile.get_all_posts.count (this is a scriptlet code  )-->
 </div>
 {% endblock %}

@@ -144,3 +144,15 @@ class UpdatePostView(UpdateView):
 
         pk = self.kwargs['pk']  #find pk for this post 
         return reverse('show_post', kwargs={'pk': pk})
+    
+class ShowFollowersDetailView(DetailView):
+    """ A view class to show a list of followers for a profile"""
+    model = Profile
+    template_name = 'mini_insta/show_followers.html'
+    context_object_name = 'profile' # note singular variable name
+
+class ShowFollowingDetailView(DetailView):
+    """ A view class to show a list of profiles that a profile is following"""
+    model = Profile
+    template_name = 'mini_insta/show_following.html'
+    context_object_name = 'profile' # note singular variable name

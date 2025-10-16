@@ -27,12 +27,21 @@
     </div>
 
     <div class="post-caption">
+        <p><strong>Likes: {{ post.get_likes|length }}</strong></p>
         <p><strong>{{ post.caption }}</strong></p>
-        <p> Created: {{ post.timestamp }}</p>
     </div>
-    <!-- link to delete this post  -->
-    <button><a href="{% url 'delete_post' post.pk %}"><strong>Delete Post</strong></a></button>
-    <!-- link to update this post  -->
-    <button><a href="{% url 'update_post' post.pk %}"><strong>Update Post</strong></a></button>
-</div>
-{% endblock %}
+    <div class="post-comments">
+        {% if post.get_all_comments %}
+        {% for comment in post.get_all_comments %}
+        <p><strong>{{ comment.profile.username }}</strong> {{ comment.text }}</p>
+        {% endfor %}
+        {% else %}
+        <p>No comments yet.</p>
+        {% endif %}
+        <p> Created: {{ post.timestamp }}</p>
+        <!-- link to delete this post  -->
+        <button><a href="{% url 'delete_post' post.pk %}"><strong>Delete Post</strong></a></button>
+        <!-- link to update this post  -->
+        <button><a href="{% url 'update_post' post.pk %}"><strong>Update Post</strong></a></button>
+    </div>
+    {% endblock %}
