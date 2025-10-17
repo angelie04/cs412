@@ -9,14 +9,31 @@
     <title> Mini Insta </title>
     <!-- lnks all pages to the css styling -->
     <link rel="stylesheet" type="text/css" href="{% static 'styles-mini_insta.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH4q96iLFI/9jZbJeLT6xQdz/3ugixN/kHbSdEpD3gQU6Vn+7ovA7R6yzC1zRZrn" crossorigin="anonymous">
+    <!-- Bootstrap Icons, did this for navbar icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 
 <body>
+    <header>
+        <!-- temporary code because i am not logged in as a user when i get on the home page -->
+        {% if profile %}
+        <!-- <h1><a href="{% url 'show_feed' profile.pk %}"><strong>Mini Insta</strong></a></h1> -->
+        <!-- Top Navigation Bar --></h1>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="{% url 'show_feed' profile.pk %}"><i class="bi bi-house-door-fill"></i></a></li>
+                <li><a href="{% url 'show_profile' profile.pk %}"><i class="bi bi-person-fill"></i></a></li>
+                <li><a href="{% url 'create_post' profile.pk %}"><i class="bi bi-file-plus-fill"></i></a></li>
+            </ul>
+        </nav>
+        {% else %}
+        <h1><a href="{% url 'show_all_profiles' %}"><strong><i class="bi bi-people-fill"></i></strong></a></h1>
+        {% endif %}
+    </header>
 
-    <head>
-        <!-- link for the header text, so that users can always go back to home page if needed -->
-        <h1> <a href="{% url 'show_all_profiles' %}"><strong> Mini insta </strong></a></h1>
-    </head>
     <!-- subsitute specific content here -->
     {% block content %}
     {% endblock %}
@@ -27,8 +44,5 @@
     </nav>
     {% endif %}
 </body>
-<footer>
-    Page created by angelie@bu.edu
-</footer>
 
 </html>

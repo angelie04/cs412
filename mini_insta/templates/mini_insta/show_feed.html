@@ -1,0 +1,60 @@
+<!-- File: show_feed.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 10/1/2025 -->
+<!-- Description: This template displays the post feed for a single post-->
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="feed-container">
+    {% if feed %}
+    {% for post in feed %}
+    <div class="feed-item">
+        <!-- Author info -->
+        <div class="feed-profile-info">
+            <img src="{{ post.profile.profile_image_url }}" alt="{{ post.profile.display_name }} profile image"
+                class="profile-pic-small">
+            <a href="{% url 'show_profile' post.profile.pk %}">
+                <strong>{{ post.profile.username }}</strong>
+            </a>
+        </div>
+        <!-- Post image, similar to show_profile!! -->
+        <div class="feed-post-content">
+            {% with photos=post.get_all_photos %}
+            {% if photos|length %}
+            <!--  -->
+            <a href="{% url 'show_post' post.pk %}">
+                <img src="{{ photos.0.get_image_url }}" alt="Post Image" class="post-image">
+            </a>
+            {% else %}
+            <img src="{% static 'images/no-image.png' %}" alt="No Image Available" class="post-image">
+            {% endif %}
+            {% endwith %}
+            <!-- Post section for Likes and Comments -->
+            <div class="post-stats">
+                <p><strong>Likes: {{ post.get_likes|length }}</strong></p>
+                <div class="post-comments">
+                    <!-- Django’s automatically created reverse accessor (post.comment_set.all) -->
+                    {% if post.comment_set.all %}
+                    <ul>
+                        {% for comment in post.comment_set.all %}
+                        <li>
+                            <strong>{{ comment.profile.username }}:</strong> {{ comment.text }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>No comments yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No posts in your feed yet.</p>
+    {% endfor %}
+    {% else %}
+    <p>Your feed is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

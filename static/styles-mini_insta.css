@@ -18,6 +18,34 @@ a {
   text-decoration: none;
   
 }
+/* Top Navigation Bar styling to display links horizontally */
+.top-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;             /* Use flex to line items horizontally */
+  justify-content: center;   /* Center clickable items in the nav */
+  gap: 2rem;                 /* Space between the items */
+}
+
+/* Increased the size of all Bootstrap icons */
+.top-nav ul li a i {
+  display: inline-block; /* allow vertical margins */
+  margin-top: 1rem;
+  font-size: 1.6rem; 
+}
+.top-nav ul li a {
+  text-decoration: none;
+  color: #a13163;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+}
+
+.top-nav ul li a:hover {
+  background-color: #e0bbff;
+  color: #fff;
+  border-radius: 4px;
+}
 /* Container for the homepage */
 .home-container {
   display: flex;
@@ -120,4 +148,64 @@ a {
     display: flex;
     gap: 1em; /* space between the forms */
     margin-top: 1em;
+}
+
+/* Feed container – centers the feed and adds some background, padding, and rounded corners */
+.feed-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Each feed item – separated by a bottom border and some spacing */
+.feed-item {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+/* Author info at the top of a feed item */
+.feed-profile-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.feed-profile-info .profile-pic-small {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e0bbff;
+}
+
+/* Post content styling – spacing for the post image and details */
+.feed-post-content {
+  margin-bottom: 1rem;
+}
+
+/* Post section for likes and comments */
+.post-stats {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+/* Comments styling inside the feed post */
+.post-comments {
+  margin-top: 0.5rem;
+}
+
+.post-comments ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-comments li {
+  padding: 0.3rem 0;
 }

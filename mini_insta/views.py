@@ -156,3 +156,22 @@ class ShowFollowingDetailView(DetailView):
     model = Profile
     template_name = 'mini_insta/show_following.html'
     context_object_name = 'profile' # note singular variable name
+
+class PostFeedListView(ListView):
+    """A view class to show a users feed list"""
+
+    model = Profile
+    template_name = 'mini_insta/show_feed.html'
+    context_object_name = 'profile'
+
+    def get_queryset(self):
+        # Filter to return only the Profile for the given pk from the URL.
+        return Profile.objects.filter(pk=self.kwargs['pk'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Since queryset will be a list with one profile, get that instance:
+        profile = self.object_list.first()
+        context['profile'] = profile    # now refer to this instance as 'profile'
+        context['feed'] = profile.get_post_feed()  # add feed (feed is a QuerySet/list of Posts)
+        return context

@@ -52,6 +52,13 @@ class Profile(models.Model):
         count = len(self.get_following())
         return count
     
+    def get_post_feed(self):
+        """returns a list of Posts, specifically for the profiles being 
+        followed by the profiles on which the method was called """
+        profile = Profile.objects.get(pk=self.pk)
+        following_profile = profile.get_following()
+        return Post.objects.filter(profile__in=following_profile)
+    
 class Post(models.Model):
     """ models the data attributes of a post on a profile"""
 
