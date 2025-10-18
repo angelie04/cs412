@@ -1,0 +1,18 @@
+<!-- File: search.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 10/17/2025 -->
+<!-- Description: Presents an HTML form with a text area search box as well as a button to submit the search -->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Search</h1>
+{% if profile %}
+<form method="GET" action="{% url 'search_results' profile.pk %}">
+    <label for="search-query">Search for text, tags, or people: </label>
+    <input type="text" id="search-query" name="query" required>
+    <button type="submit">Search</button>
+</form>
+{% else %}
+<p>You must be logged in to use search.</p>
+{% endif %}
+{% endblock %}

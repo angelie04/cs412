@@ -1,0 +1,56 @@
+<!-- File: search_results.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 10/17/2025 -->
+<!-- Description: Displays the search results for profiles and posts -->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Results for "{{ request.GET.query }}"</h1>
+
+<!-- Profiles Section -->
+<section class="search-profiles">
+    <h2>Matching Profiles</h2>
+    {% if profiles %}
+    <ul>
+        {% for profile in profiles %}
+        <div class="feed-profile-info">
+            <img src="{{ profile.profile_image_url }}" alt="{{ profile.display_name }} profile image"
+                class="profile-pic-small">
+            <a href="{% url 'show_profile' profile.pk %}">
+                <strong>{{ profile.username }}</strong>
+            </a>
+        </div>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Sorry, no profiles match this search. </p>
+    {% endif %}
+</section>
+
+<hr>
+
+<!-- Posts Section -->
+<section class="search-posts">
+    <h2>Matching Posts</h2>
+    {% if posts %}
+    {% for post in posts %}
+    <div class="search-post">
+        {% with photos=post.get_all_photos %}
+        {% if photos|length %}
+        <a href="{% url 'show_post' post.pk %}">
+            <img src="{{ photos.0.get_image_url }}" alt="Post Image" class="search-post-image">
+        </a>
+        {% else %}
+        <p>No image available</p>
+        {% endif %}
+        {% endwith %}
+        <p>{{ post.caption }}</p>
+        <p><strong>By:</strong> <a href="{% url 'show_profile' post.profile.pk %}">{{ post.profile.display_name }}</a>
+        </p>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>Sorry, no posts match this search.</p>
+    {% endif %}
+</section>
+{% endblock %}

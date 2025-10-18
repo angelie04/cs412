@@ -15,4 +15,5 @@ urlpatterns = [
      path('profile/<int:pk>/followers', ShowFollowersDetailView.as_view(), name='show_followers'), # for the show followers page
      path('profile/<int:pk>/following', ShowFollowingDetailView.as_view(), name='show_following'), # for the show following page
      path('profile/<int:pk>/feed', PostFeedListView.as_view(), name = 'show_feed' ), # for the show feed page
+     path('profile/<int:pk>/search', SearchView.as_view(), name='search_results'), # for the search posts page
 ]

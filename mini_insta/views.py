@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import *
 from .forms import *
 from django.urls import reverse
+from django.db.models import Q
 
 # Create your views here.
 
@@ -165,13 +166,62 @@ class PostFeedListView(ListView):
     context_object_name = 'profile'
 
     def get_queryset(self):
-        # Filter to return only the Profile for the given pk from the URL.
+        """Filter to return only the Profile for the given pk from the URL.""" 
+
         return Profile.objects.filter(pk=self.kwargs['pk'])
     
     def get_context_data(self, **kwargs):
+        """Add the post feed to the context."""
+
         context = super().get_context_data(**kwargs)
-        # Since queryset will be a list with one profile, get that instance:
         profile = self.object_list.first()
-        context['profile'] = profile    # now refer to this instance as 'profile'
-        context['feed'] = profile.get_post_feed()  # add feed (feed is a QuerySet/list of Posts)
+        context['profile'] = profile   
+        context['feed'] = profile.get_post_feed()  
+        return context
+    
+class SearchView(ListView):
+    """A view class for searching profiles"""
+
+    model = Profile
+    template_name = 'mini_insta/search_results.html'
+    context_object_name = 'profiles'  
+
+    def dispatch(self, request, *args, **kwargs):
+        """Override dispatch to check for the presence of the query parameter."""
+
+        # Use the pk from the URL instead of the session
+        current_profile = Profile.objects.get(pk=self.kwargs.get('pk'))
+        if not request.GET.get('query'):
+            # If there is no query, render the search form with the current profile in context.
+            return render(request, 'mini_insta/search.html', {'profile': current_profile})
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        """Filter posts based on the search query."""
+
+        query = self.request.GET.get('query', '')
+        return Post.objects.filter(caption__icontains=query)
+
+    def get_context_data(self, **kwargs):
+        """Add additional context data for the search results page."""
+
+        context = super().get_context_data(**kwargs)
+
+        current_profile = Profile.objects.get(pk=self.kwargs.get('pk'))
+
+        query = self.request.GET.get('query', '')
+        # Get posts matching the query (similar to get_queryset)
+        posts = Post.objects.filter(caption__icontains=query)
+
+        # Get profiles matching the query in username, display_name, or bio_text
+        # imported Q from django.db.models for this
+        matching_profiles = Profile.objects.filter(
+            Q(username__icontains=query) |
+            Q(display_name__icontains=query) |
+            Q(bio_text__icontains=query)
+        )
+        context['profile'] = current_profile
+        context['query'] = query
+        context['posts'] = posts
+        context['profiles'] = matching_profiles
         return context
