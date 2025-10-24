@@ -22,7 +22,7 @@ urlpatterns = [
      ## authorization URLS
      path('login/', auth_views.LoginView.as_view(template_name='mini_insta/login.html'), name='login'),
      path('logout/', auth_views.LogoutView.as_view(next_page='logout_confirmation'), name='logout'),
-     path('register/', UserRegistrationView.as_view(), name='register'), # new user registration
+     # path('register/', UserRegistrationView.as_view(), name='register'), # new user registration
      path('logout_confirmation/', UserLogoutView.as_view(), name='logout_confirmation'),
      #task 4 assignment 7 URLs
      path('profile/<int:pk>/follow', FollowProfileView.as_view(), name='follow_profile'), # to follow a profile

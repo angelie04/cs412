@@ -5,18 +5,12 @@
 {% extends 'mini_insta/base.html' %}
 
 {% block content %}
-<h1> Create Profile </h1>
+<h1> Create Profile & Register</h1>
 <form action="{% url 'create_profile' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         {{ form.as_table }}
         {{ user_form.as_table }}
-        <!-- define a table row -->
-        <tr>
-            <!-- manually adding a table row with an input feild for the photos -->
-            <th> <label for="files">Profile image file:</label></th>
-            <td> <input type="file" name="files" id="files"></td>
-        </tr>
     </table>
     <button type="submit">Create Profile</button>
 </form>

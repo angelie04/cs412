@@ -78,29 +78,19 @@ class CreatePostView(ProfileLoginRequiredMixin, CreateView):
         return context
     
     def form_valid(self, form):
-        """This method handles the form submission and saves
-        the new object to the Django database.
-        We need to add the foreign key of the profile to the Comment
-        object before saving it to the database.
-        """
-        # get the profile pk from the URL
-        profile_pk = self.kwargs['pk']
-        # get the Profile object associated with this pk
-        profile = Profile.objects.get(pk=profile_pk)
-        # associate this profile with the post being created
-        form.instance.profile = profile #attach the correct profile to the post
-        # Save the new Post object to the database
+        """Attach the logged-in user's profile to the new Post and save."""
+        current_profile = Profile.objects.filter(user=self.request.user).first()
+        if not current_profile:
+            # either redirect to profile creation or raise an error
+            return redirect('create_profile')
+        form.instance.profile = current_profile
         post = form.save()
         files = self.request.FILES.getlist('files')
         for file in files:
             Photo.objects.create(post=post, image_file=file)
-        
-        #NEW: Find logged in user
-        user = self.request.user
-        print(f"CreatePostView.form_valid(): user is {user}")
 
-        #NEW: attach that user to the form instance (to the Profile object)
-        form.instance.profile.user = user
+        # attach the user to the profile instance (optional)
+        form.instance.profile.user = self.request.user
 
         return super().form_valid(form)
     
@@ -252,22 +242,47 @@ class SearchView(ProfileLoginRequiredMixin, ListView):
         context['profiles'] = matching_profiles
         return context
     
-class UserRegistrationView(CreateView):
-    """ A view class to handle user registration"""
-    model = User
-    form_class = UserCreationForm
-    template_name = 'mini_insta/register.html'
+    #dont need register view bc combined with create profile view, but also don't want to delete it yet!
+# class UserRegistrationView(CreateView):
+#     """ A view class to handle user registration"""
+#     model = User
+#     form_class = UserCreationForm
+#     template_name = 'mini_insta/register.html'
 
-    def get_success_url(self):
-        """ after successfully registering, return to the login page"""
-        return reverse('login')
+#     def get_success_url(self):
+#         """ after successfully registering, return to the login page"""
+#         return reverse('login')
     
-    # added this because we need to create a profile at the same time!
-    # was advised to not change anything with the UserCreationForm table since it's a lot of code to fix!
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user_form'] = CreateProfileForm()
-        return context
+#     # added this because we need to create a profile at the same time!
+#     # was advised to not change anything with the UserCreationForm table since it's a lot of code to fix!
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['user_form'] = CreateProfileForm()
+#         return context
+    # def get_context_data(self,**kwargs):
+    #     """Add the profile object to the context"""
+    #     context = super().get_context_data(**kwargs)
+    #     context['user_form'] = UserCreationForm()  # Add the UserCreationForm instance
+    #     return context
+
+    # def form_valid(self, form):
+    #     """This method handles the form submission and saves
+    #     the new object to the Django database.
+    #     We need to add the foreign key of the profile to the Comment
+    #     object before saving it to the database.
+    #     """
+    #     # Reconstruct the UserCreationForm instance from the self.request.POST data
+    #     user_form = UserCreationForm(self.request.POST)
+    #     if user_form.is_valid():
+    #         user = user_form.save()
+    #         # Log the user in
+    #         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+    #         form.instance.user = user # Attach the Django User to the Profile instance object
+    #         return super().form_valid(form) # Delegate the rest to the super class
+    #     else:
+    #         # If user_form is not valid, re-render the form
+    #         return self.form_invalid(form)
+    
 class UserLogoutView(TemplateView):
     """ A view class to handle user logout"""
     template_name = 'mini_insta/logged_out.html'
