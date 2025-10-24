@@ -18,20 +18,36 @@
 
 <body>
     <header>
-        <!-- temporary code because i am not logged in as a user when i get on the home page -->
+        {% if request.user.is_authenticated %}
+        <!-- Top Navigation Bar -->
         {% if profile %}
-        <!-- <h1><a href="{% url 'show_feed' profile.pk %}"><strong>Mini Insta</strong></a></h1> -->
-        <!-- Top Navigation Bar --></h1>
         <nav class="top-nav">
             <ul>
-                <li><a href="{% url 'show_feed' profile.pk %}"><i class="bi bi-house-door-fill"></i></a></li>
+                <li><a href="{% url 'show_feed' %}"><i class="bi bi-house-door-fill"></i></a></li>
                 <li><a href="{% url 'show_profile' profile.pk %}"><i class="bi bi-person-fill"></i></a></li>
-                <li><a href="{% url 'create_post' profile.pk %}"><i class="bi bi-file-plus-fill"></i></a></li>
-                <li><a href="{% url 'search_results' profile.pk %}"><i class="bi bi-search"></i></a> </li>
+                <li><a href="{% url 'create_post'  %}"><i class="bi bi-file-plus-fill"></i></a></li>
+                <li><a href="{% url 'search_results' %}"><i class="bi bi-search"></i></a> </li>
             </ul>
         </nav>
+        {% endif %}
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Logout"> </li>
+        </form>
         {% else %}
-        <h1><a href="{% url 'show_all_profiles' %}"><strong><i class="bi bi-people-fill"></i></strong></a></h1>
+        <!-- <h1><a href="{% url 'show_all_profiles' %}"><strong><i class="bi bi-people-fill"></i></strong></a></h1> -->
+        <!-- Navigation for unauthenticated users -->
+        <h1>
+            <a href="{% url 'show_all_profiles' %}">
+                <strong><i class="bi bi-people-fill"></i> Mini Insta</strong>
+            </a>
+        </h1>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            </ul>
+        </nav>
         {% endif %}
     </header>
 
@@ -41,7 +57,7 @@
     <!-- Bottom navigation: show Create Post link only if a profile is present in the context -->
     {% if profile %}
     <nav class="bottom-nav">
-        <a href="{% url 'create_post' profile.pk %}" class="create-post-link"><strong>Create Post 💬</strong></a>
+        <a href="{% url 'create_post' %}" class="create-post-link"><strong>Create Post 💬</strong></a>
     </nav>
     {% endif %}
 </body>

@@ -1,0 +1,24 @@
+<!-- Angelie Darbouze (angelie@bu.edu)-->
+<!-- Date: 10/23/2025 -->
+<!-- Defines an HTML form for creating CreateProfileForm in forms.py  -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h1> Create Profile </h1>
+<form action="{% url 'create_profile' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+        {{ user_form.as_table }}
+        <!-- define a table row -->
+        <tr>
+            <!-- manually adding a table row with an input feild for the photos -->
+            <th> <label for="files">Profile image file:</label></th>
+            <td> <input type="file" name="files" id="files"></td>
+        </tr>
+    </table>
+    <button type="submit">Create Profile</button>
+</form>
+
+{% endblock %}

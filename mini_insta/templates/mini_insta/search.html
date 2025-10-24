@@ -7,7 +7,7 @@
 {% block content %}
 <h1>Search</h1>
 {% if profile %}
-<form method="GET" action="{% url 'search_results' profile.pk %}">
+<form method="GET" action="{% url 'search_results' %}">
     <label for="search-query">Search for text, tags, or people: </label>
     <input type="text" id="search-query" name="query" required>
     <button type="submit">Search</button>

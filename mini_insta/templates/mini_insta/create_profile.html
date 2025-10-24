@@ -1,14 +1,20 @@
 <!-- File: show_profile.html -->
 <!-- Author: Angelie Darbouze (angelie@bu.edu), 9/25/2025 -->
 <!-- Description: This template renders a profile page for a single Profile record. It displays a larger profile image, user information, and placeholders for followers, following, and posts. -->
+<!-- not using this anymore, instead calling create_profile_form.html -->
 {% extends 'mini_insta/base.html' %}
 
 {% block content %}
 <h1>Create a New Profile</h1>
-<form action="{% url 'create_profile' %}" method="POST">
+<form action="{% url 'show_profile' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         {{form.as_table}}
+        <tr>
+            <!-- manually adding a table row with an input feild for the photos -->
+            <th> <label for="files">Profile image file:</label></th>
+            <td> <input type="file" name="files" id="files"></td>
+        </tr>
     </table>
     <button type="submit">Create Profile</button>
 </form>

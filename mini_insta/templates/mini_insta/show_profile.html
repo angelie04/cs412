@@ -16,7 +16,17 @@
             <p>{{ profile.bio_text }}</p>
         </div>
     </div>
-    <div> <button><a href="{% url 'update_profile' profile.pk %}" style="color: #564168;"><strong> Edit
+    {% if request.user.is_authenticated and request.user != profile.user %}
+    <form action="{% url 'follow_profile' profile.pk %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" style="color: #564168;"><strong>Follow</strong></button>
+    </form>
+    <form action="{% url 'unfollow_profile' profile.pk %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" style="color: #564168;"><strong>Unfollow</strong></button>
+    </form>
+    {% endif %}
+    <div> <button><a href="{% url 'update_profile' %}" style="color: #564168;"><strong> Edit
                     Profile</strong></a></button></div>
     <!-- these different classes help with css styling -->
     <div class="profile-details">
@@ -43,6 +53,16 @@
             {% endif %}
             {% endwith %}
             <p>{{ post.caption }}</p>
+            {% if request.user.is_authenticated and request.user.profile.pk != post.profile.pk %}
+            <form action="{% url 'like_post' post.pk %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="color: #564168;"><strong>Like</strong></button>
+            </form>
+            <form action="{% url 'unlike_post' post.pk %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="color: #564168;"><strong>Unlike</strong></button>
+            </form>
+            {% endif %}
         </div>
         {% empty %}
         <p>No posts available.</p>

@@ -1,0 +1,26 @@
+<!-- File: login.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 10/21/2025 -->
+<!-- Description: This template displays the login page for users to authenticate -->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1> Login to mini insta</h1>
+
+<form action=" {% url 'login' %}" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="login">
+    {% if request.GET.next %}
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+    {% else %}
+        <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+    {% endif %}
+</form>
+
+<hr>
+<p> Don't have an account? <a href="{% url 'register' %}">Register Here</a>
+    {% endblock %}
+    

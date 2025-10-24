@@ -7,8 +7,7 @@
 {% block content %}
 
 <div class="feed-container">
-    {% if feed %}
-    {% for post in feed %}
+    {% for post in posts %}
     <div class="feed-item">
         <!-- Author info -->
         <div class="feed-profile-info">
@@ -33,6 +32,12 @@
             <!-- Post section for Likes and Comments -->
             <div class="post-stats">
                 <p><strong>Likes: {{ post.get_likes|length }}</strong></p>
+                {% if request.user.is_authenticated and request.user.profile.pk != post.profile.pk %}
+                <form action="{% url 'like_post' post.pk %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="color: #564168;"><strong>Like</strong></button>
+                </form>
+                {% endif %}
                 <div class="post-comments">
                     <!-- Django’s automatically created reverse accessor (post.comment_set.all) -->
                     {% if post.comment_set.all %}
@@ -53,8 +58,6 @@
     {% empty %}
     <p>No posts in your feed yet.</p>
     {% endfor %}
-    {% else %}
-    <p>Your feed is empty.</p>
-    {% endif %}
 </div>
+
 {% endblock %}

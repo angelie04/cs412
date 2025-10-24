@@ -1,0 +1,26 @@
+<!-- File: login.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 10/21/2025 -->
+<!-- Description: This template displays the login page for users to authenticate -->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Register for new account</h1>
+
+<form action=" {% url 'register' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+        {{ user_form.as_table }}
+        <!-- define a table row -->
+        <tr>
+            <!-- manually adding a table row with an input feild for the photos -->
+            <th> <label for="files">Profile image file:</label></th>
+            <td> <input type="file" name="files" id="files"></td>
+        </tr>
+    </table>
+    <input type="submit" value="Register">
+</form>
+{% endblock %}

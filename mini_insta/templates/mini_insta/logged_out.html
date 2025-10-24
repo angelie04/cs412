@@ -1,0 +1,10 @@
+<!-- Angelie Darbouze (angelie@bu.edu) -->
+<!-- Date 10/23/2025 -->
+<!-- This template displays a message when the user is logged out -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h1> You have been logged out </h1>
+<p> Please <a href="{% url 'login' %}"> login </a> to continue using mini insta! </p>
+{% endblock %}

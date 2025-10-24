@@ -3,7 +3,7 @@
 # Description: Defines data models for the mini_insta application
 from django.db import models
 from django.urls import reverse
-
+from django.contrib.auth.models import User
 class Profile(models.Model):
     """Models the data attributes of an individual user profile"""
     # define data attributes of a user profile
@@ -12,6 +12,7 @@ class Profile(models.Model):
     profile_image_url = models.URLField(blank=True)
     bio_text = models.TextField(blank=True)
     join_date = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         """ return a string representation of the Profile model"""
@@ -55,8 +56,8 @@ class Profile(models.Model):
     def get_post_feed(self):
         """returns a list of Posts, specifically for the profiles being 
         followed by the profiles on which the method was called """
-        profile = Profile.objects.get(pk=self.pk)
-        following_profile = profile.get_following()
+        # profile = Profile.objects.get(pk=self.pk)
+        following_profile = self.get_following()
         return Post.objects.filter(profile__in=following_profile)
     
 class Post(models.Model):
