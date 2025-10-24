@@ -39,9 +39,11 @@
         <p>No comments yet.</p>
         {% endif %}
         <p> Created: {{ post.timestamp }}</p>
+        {% if request.user.is_authenticated and request.user == profile.user %}
         <!-- link to delete this post  -->
         <button><a href="{% url 'delete_post' %}"><strong>Delete Post</strong></a></button>
         <!-- link to update this post  -->
         <button><a href="{% url 'update_post' post.pk %}"><strong>Update Post</strong></a></button>
+        {% endif %}
     </div>
     {% endblock %}

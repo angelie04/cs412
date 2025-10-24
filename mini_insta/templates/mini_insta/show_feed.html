@@ -32,7 +32,7 @@
             <!-- Post section for Likes and Comments -->
             <div class="post-stats">
                 <p><strong>Likes: {{ post.get_likes|length }}</strong></p>
-                {% if request.user.is_authenticated and request.user.profile.pk != post.profile.pk %}
+                {% if request.user.is_authenticated and request.user != profile.user %}
                 <form action="{% url 'like_post' post.pk %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" style="color: #564168;"><strong>Like</strong></button>
