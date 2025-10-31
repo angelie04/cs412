@@ -1,0 +1,32 @@
+<!-- Angelie Darbouze (angelie@bu.edu) 10/28/25-->
+<!-- file: base.html -->
+<!-- Description: Base template for voter analytics app -->
+
+{% load static %}
+
+<html>
+
+<head>
+    <title> Voter Analytics</title>
+    <link rel="stylesheet" href=" {% static 'styles8.css' %}">
+</head>
+
+<body>
+    <header>
+        <h1>Voter Analytics</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'voter_list' %}">Voters</a></li>
+                <li><a href="{% url 'graphs' %}">Graphs</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    {% block content %}
+    <!-- {% include 'voter_analytics/search.html' %} -->
+    {% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{% extends 'voter_analytics/base.html' %}
+{% block content %}
+{% include 'voter_analytics/search.html' %}
+
+<div class="container">
+    <div class="row">
+        {{ graph_year|safe }}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {{ graph_party|safe }}
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {{ graph_election|safe }}
+    </div>
+
+
+    {% endblock %}

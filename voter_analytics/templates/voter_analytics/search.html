@@ -1,0 +1,87 @@
+<!-- Angelie Darbouze (angelie@bu.edu) 10/28/25-->
+<!-- file: search.html -->
+<!-- Description: Search for specific voters -->
+
+<h1>Search Form</h1>
+
+<table>
+    <!-- if we are on home page, show voter_list else if on graph page, show graph -->
+    <form action="{% if request.resolver_match.url_name == 'graphs' %}
+    {% url 'graphs' %}
+    {% else %}
+    {% url 'voter_list' %}
+    {% endif %}" method="get">
+        <tr>
+            <th> Party Affiliation:</th>
+            <td>
+                <!-- select party affiliation from drop-down list -->
+                <select id="party_affiliation" name="party_affiliation">
+                    <option value="">↓ Select Party ↓</option>
+                    {% for p in party_affiliation %}
+                    <option value="{{ p }}">{{ p }}</option>
+                    {% endfor %}
+                    <!-- keep going from ss, also see how to make this work after submit -->
+                </select>
+                <!-- ?party_affiliation=A  and set it to A so that persistence is good-->
+            </td>
+        </tr>
+        <tr>
+            <th> Voter score:</th>
+            <td>
+                <!-- select voter score from drop-down list -->
+                <select name="voter_score">
+                    <option value="">↓ Select Score ↓</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                    <option value="0">0</option>
+                </select>
+        </tr>
+        <tr>
+            <th> Min date of birth:</th>
+            <td>
+                <!-- select minimum dob from drop-down list by calender-->
+                <select id="min_year" name="min_year">
+                    <option value="">↓ Select Year ↓</option>
+                    {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+
+            </td>
+        </tr>
+        <tr>
+            <th> Maximum date of birth:</th>
+            <td>
+                <!-- select maximum dob from drop-down list by calender-->
+                <select id="max_year" name="max_year">
+                    <option value="">↓ Select Year ↓</option>
+                    {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Previous Election Participation
+            </th>
+            <td>
+                <input type="checkbox" name="v20state">v20state<br>
+                <input type="checkbox" name="v21town">v21town<br>
+                <input type="checkbox" name="v21primary">v21primary<br>
+                <input type="checkbox" name="v22general">v22general<br>
+                <input type="checkbox" name="v23town">v23town<br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Cancel">
+
+            </td>
+            <td> <input type="submit" value="Submit"></td>
+        </tr>
+    </form>
+</table>

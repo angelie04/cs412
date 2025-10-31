@@ -1,0 +1,66 @@
+{% extends 'voter_analytics/base.html' %}
+{% block content %}
+<h2>Voter detail</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <td>{{ voter.first_name }} {{ voter.last_name }}</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>{{ voter.street_number }} {{ voter.street_name }}
+            {% if voter.apartment %} Apt {{ voter.apartment }}
+            {% endif %}
+            {{ voter.zip_code }}</td>
+    </tr>
+    <tr>
+        <th>Date of birth</th>
+        <td>{{ voter.dob }}</td>
+    </tr>
+    <tr>
+        <th>Registration date</th>
+        <td>{{ voter.registration_date }}</td>
+    </tr>
+    <tr>
+        <th>Party</th>
+        <td>{{ voter.party_affiliation }}</td>
+    </tr>
+    <tr>
+        <th>Precinct</th>
+        <td>{{ voter.precinct }}</td>
+    </tr>
+    <tr>
+        <th>Voter score</th>
+        <td>{{ voter.voter_score }}</td>
+    </tr>
+    <tr>
+        <th>v20state</th>
+        <td>{{ voter.v20state }}</td>
+    </tr>
+    <tr>
+        <th>v21town</th>
+        <td>{{ voter.v21town }}</td>
+    </tr>
+    <tr>
+        <th>v21primary</th>
+        <td>{{ voter.v21primary }}</td>
+    </tr>
+    <tr>
+        <th>v22general</th>
+        <td>{{ voter.v22general }}</td>
+    </tr>
+    <tr>
+        <th>v23town</th>
+        <td>{{ voter.v23town }}</td>
+    </tr>
+</table>
+
+<p>
+    <a href="https://www.google.com/maps/search/?api=1&query={{ map_query|urlencode }}" target="_blank" rel="noopener">
+        Open address in Google Maps
+    </a>
+</p>
+
+<p><a href="{% url 'voter_list' %}">Back to list</a></p>
+
+{% endblock %}

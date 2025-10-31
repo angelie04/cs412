@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "quotes", 
     "restaurant", # new app
     "mini_insta", # new app
+    "voter_analytics", # assignment 8 app
 ]
 
 MIDDLEWARE = [
