@@ -1,0 +1,12 @@
+<!-- Show a single picture -->
+<!-- templates/dadjokes/picture_detail.html -->
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+<h1>Picture</h1>
+{% if picture %}
+<img src="{{ picture.image_url }}" alt="Picture" style="max-width:600px; border-radius:16px;">
+{% else %}
+<p>No picture found.</p>
+{% endif %}
+{% endblock %}

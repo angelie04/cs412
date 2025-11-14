@@ -1,0 +1,18 @@
+<!-- Shows one joke based on its primary key-->
+<!-- templates/dadjokes/joke_detail.html -->
+
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+<h1>Joke</h1>
+
+{% if joke %}
+<p>{{ joke.text }}</p>
+<p><em>By: {{ joke.contributor|default:"Anonymous" }}</em></p>
+<p><small>Posted: {{ joke.timestamp }}</small></p>
+{% else %}
+<p>No joke found.</p>
+{% endif %}
+
+<p><a href="{% url 'joke_list' %}">Back to all jokes</a></p>
+{% endblock %}

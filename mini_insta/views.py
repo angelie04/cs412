@@ -242,47 +242,6 @@ class SearchView(ProfileLoginRequiredMixin, ListView):
         context['profiles'] = matching_profiles
         return context
     
-    #dont need register view bc combined with create profile view, but also don't want to delete it yet!
-# class UserRegistrationView(CreateView):
-#     """ A view class to handle user registration"""
-#     model = User
-#     form_class = UserCreationForm
-#     template_name = 'mini_insta/register.html'
-
-#     def get_success_url(self):
-#         """ after successfully registering, return to the login page"""
-#         return reverse('login')
-    
-#     # added this because we need to create a profile at the same time!
-#     # was advised to not change anything with the UserCreationForm table since it's a lot of code to fix!
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['user_form'] = CreateProfileForm()
-#         return context
-    # def get_context_data(self,**kwargs):
-    #     """Add the profile object to the context"""
-    #     context = super().get_context_data(**kwargs)
-    #     context['user_form'] = UserCreationForm()  # Add the UserCreationForm instance
-    #     return context
-
-    # def form_valid(self, form):
-    #     """This method handles the form submission and saves
-    #     the new object to the Django database.
-    #     We need to add the foreign key of the profile to the Comment
-    #     object before saving it to the database.
-    #     """
-    #     # Reconstruct the UserCreationForm instance from the self.request.POST data
-    #     user_form = UserCreationForm(self.request.POST)
-    #     if user_form.is_valid():
-    #         user = user_form.save()
-    #         # Log the user in
-    #         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
-    #         form.instance.user = user # Attach the Django User to the Profile instance object
-    #         return super().form_valid(form) # Delegate the rest to the super class
-    #     else:
-    #         # If user_form is not valid, re-render the form
-    #         return self.form_invalid(form)
-    
 class UserLogoutView(TemplateView):
     """ A view class to handle user logout"""
     template_name = 'mini_insta/logged_out.html'
@@ -363,3 +322,17 @@ class DeleteLikePostView(ProfileLoginRequiredMixin, TemplateView):
         if post.profile != liker_profile:
             Like.objects.filter(post=post, profile=liker_profile).delete()
         return redirect('show_post', pk=post.pk)
+    
+
+#############################################################
+# created in class 11/11/2025
+# REST API:
+
+from rest_framework import generics
+from .serializers import *
+
+class ProfileAPIView(generics.ListCreateAPIView):
+    """ An API view to return a listing of profiles and to create a profile"""
+    
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer

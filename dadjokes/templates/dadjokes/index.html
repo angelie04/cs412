@@ -1,0 +1,16 @@
+<!-- templates/dadjokes/index.html -->
+<!-- This template displays a random joke and a random picture -->
+
+{%extends "dadjokes/base.html" %}
+
+{% block content %}
+
+<h1>Random Dad joke and picture</h1>
+
+<p><strong>Joke:</strong> {{ joke.text }}</p>
+
+<p><strong>Picture:</strong></p>
+<img src="{{ picture.image_url }}" alt="Random Picture"
+    style="max-width:300px; border-radius:16px; margin-bottom:20px;">
+
+{% endblock %}

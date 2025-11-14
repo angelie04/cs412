@@ -29,4 +29,8 @@ urlpatterns = [
      path('profile/<int:pk>/delete_follow', DeleteFollowProfileView.as_view(), name='unfollow_profile'), # to unfollow a profile
      path('post/<int:pk>/like', LikePostView.as_view(), name='like_post'), # to like a post
      path('post/<int:pk>/delete_like', DeleteLikePostView.as_view(), name='unlike_post'), # to unlike a post
+
+     # API URLs
+     path('api/profiles/', ProfileAPIView.as_view(), name='api_profile_list'),
 ]
+
