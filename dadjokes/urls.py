@@ -1,5 +1,6 @@
 # dadjokes/urls.py
 # defines URL patterns for the dadjokes app
+# Angelie Darbouze (angelie@bu.edu)
 from django.urls import path
 from .views import *
 

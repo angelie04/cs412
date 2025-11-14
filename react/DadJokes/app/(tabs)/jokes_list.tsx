@@ -23,7 +23,7 @@ export default function jokes_list() {
       const res = await fetch(`${API_BASE_URL}/api/jokes/`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      setJokes(Array.isArray(data) ? data : []);
+      setJokes(data.results);
     } catch (e: any) {
       setError(e.message || 'Failed to load jokes');
       setJokes([]);
@@ -41,10 +41,9 @@ export default function jokes_list() {
 
       {loading && <ActivityIndicator size="large" />}
 
-      {/* {error && <Text style={styles.textstyle}>Error: {error}</Text>} */}
-
       {/* When screen is not loading and there is no error, then render ScrollView */}
       {!loading && !error && (
+
         <FlatList
           data={jokes}
           keyExtractor={(item) => item.id.toString()}

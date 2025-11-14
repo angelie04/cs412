@@ -51,6 +51,7 @@ class RandomJokeAPIView(APIView):
         serializer = JokeSerializer(joke)
         return Response(serializer.data)
 
+# this view was added in from task 2 to provide random picture endpoint
 class RandomPictureAPIView(APIView):
     """API view that returns a Json representation of one picture at random"""
     def get(self, request, format=None):

@@ -1,3 +1,5 @@
+# dadjokes/models.py
+# Angelie Darbouze (angelie@bu.edu)
 from django.db import models
 
 # Create your models here.
