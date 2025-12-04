@@ -1,0 +1,21 @@
+<!-- File: project/login.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 12/3/2025 -->
+<!-- Description: This template displays the login page for users to authenticate -->
+
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<form action=" {% url 'login' %}" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Login">
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    {% endif %}
+</form>
+
+<hr>
+<p> Don't have an account? <a href="{% url 'signup' %}">Signup</a>
+    {% endblock %}

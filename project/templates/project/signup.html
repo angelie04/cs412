@@ -1,0 +1,19 @@
+<!-- File: project/signup.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 12/3/2025 -->
+<!-- Description: This template displays the login page for users to authenticate -->
+
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Sign up</h1>
+
+<form action="{% url 'signup' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Signup">
+</form>
+{% endblock %}

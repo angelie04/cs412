@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "voter_analytics", # assignment 8 app
     "rest_framework", # NEW: Django REST framework
     "dadjokes", # new app
+    "project.apps.RevizeConfig", # renamed revize app
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,5 @@ REST_FRAMEWORK = {
   'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
   'PAGE_SIZE': 10
 }
+
+LOGIN_REDIRECT_URL = 'home' # added this for project login redirect

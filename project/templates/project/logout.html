@@ -1,0 +1,11 @@
+<!-- project/logout.html -->
+<!-- Angelie Darbouze (angelie@bu.edu) -->
+<!-- Date 12/3/2025 -->
+<!-- This template displays a message when the user is logged out -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h1> You have been logged out </h1>
+<p> Please <a href="{% url 'login' %}"> login </a> to continue using Revize </p>
+{% endblock %}

@@ -1,0 +1,165 @@
+/* Styles.css for final project (Revize) */
+/* Angelie Darbouze (angelie@bu.edu) 12/2/25 */
+
+body {
+    background-color: #faf7fc;
+    color: #333;
+    line-height: 1.6;
+    font-family: arial;
+}
+
+/* ----- COLOR PALETTE ----- */
+/*
+Primary Pink: #e85bd9  
+Secondary Purple: #7b3fe4
+Soft Pink: #f7d8f5  
+Dark Text: #333  
+Light Gray Background: #f4f4f4  
+*/
+
+/* ----- NAVBAR ----- */
+.navbar {
+    background-color: #7b3fe4; /* purple */
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar a {
+    color: white;
+    margin-left: 18px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #f7d8f5; /* soft pink */
+}
+
+/* ----- BUTTONS ----- */
+.btn {
+    background-color: #e85bd9; /* pink */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #d149c1;
+}
+
+/* ----- PAGE CONTAINER ----- */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+/* ----- RESTAURANT CARDS ----- */
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+    display: flex;
+    gap: 20px;
+}
+
+.card img {
+    width: 160px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.card h2 {
+    color: #7b3fe4;
+    margin-bottom: 10px;
+}
+
+.card .cuisine {
+    background-color: #f7d8f5;
+    color: #7b3fe4;
+    padding: 4px 10px;
+    border-radius: 8px;
+    display: inline-block;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.card .rating {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e85bd9;
+    margin-top: 6px;
+}
+
+/* ----- REVIEW BOX ----- */
+.review {
+    background-color: #ffffff;
+    padding: 15px;
+    border-left: 4px solid #e85bd9; 
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.review .username {
+    color: #7b3fe4;
+    font-weight: bold;
+}
+
+.review .date {
+    color: gray;
+    font-size: 14px;
+}
+
+/* ----- FORMS ----- */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+}
+
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #7b3fe4;
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #f0ccf0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+form input:focus,
+form textarea:focus {
+    border-color: #e85bd9;
+    outline: none;
+}
+
+/* ----- FOOTER ----- */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    background-color: #7b3fe4;
+    color: white;
+}
