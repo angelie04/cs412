@@ -6,20 +6,22 @@ body {
     color: #333;
     line-height: 1.6;
     font-family: arial;
+    font-weight: bold;
+
 }
 
-/* ----- COLOR PALETTE ----- */
-/*
-Primary Pink: #e85bd9  
-Secondary Purple: #7b3fe4
-Soft Pink: #f7d8f5  
-Dark Text: #333  
-Light Gray Background: #f4f4f4  
-*/
+h1,
+h2,
+h3 {
+    color: #111111;
+    font-weight: bold;
+    padding: 32px;
+}
 
 /* ----- NAVBAR ----- */
 .navbar {
-    background-color: #7b3fe4; /* purple */
+    background-color: #7b3fe4;
+    /* purple */
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
@@ -40,12 +42,38 @@ Light Gray Background: #f4f4f4
 }
 
 .navbar a:hover {
-    color: #f7d8f5; /* soft pink */
+    color: #f7d8f5;
+    /* soft pink */
+}
+
+/* navbar logout form: make it transparent so button matches Login/Signup!! */
+nav .logout-form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+nav .logout-form .btn {
+    background-color: #e85bd9;
+    /* match .btn */
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+}
+
+nav .logout-form .btn:hover {
+    background-color: #d149c1;
 }
 
 /* ----- BUTTONS ----- */
 .btn {
-    background-color: #e85bd9; /* pink */
+    background-color: #e85bd9;
+    /* pink */
     color: white;
     padding: 10px 18px;
     border-radius: 6px;
@@ -71,7 +99,7 @@ Light Gray Background: #f4f4f4
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
     display: flex;
     gap: 20px;
 }
@@ -89,13 +117,26 @@ Light Gray Background: #f4f4f4
 }
 
 .card .cuisine {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+
+/* individual badge */
+.card .cuisine-badge {
     background-color: #f7d8f5;
     color: #7b3fe4;
+    text-align: center;
+    border-radius: 999px;
     padding: 4px 10px;
-    border-radius: 8px;
     display: inline-block;
     font-size: 14px;
     margin-bottom: 8px;
+    max-width: 150px;
+    white-space: nowrap;
 }
 
 .card .rating {
@@ -109,7 +150,7 @@ Light Gray Background: #f4f4f4
 .review {
     background-color: #ffffff;
     padding: 15px;
-    border-left: 4px solid #e85bd9; 
+    border-left: 4px solid #e85bd9;
     margin-bottom: 15px;
     border-radius: 6px;
 }
@@ -129,7 +170,7 @@ form {
     background-color: white;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 form label {

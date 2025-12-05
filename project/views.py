@@ -6,7 +6,7 @@ from .forms import *
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm ## for new User
 from django.urls import reverse
-
+import random
 
 
 # Create your views here.
@@ -18,9 +18,18 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        # show a few restaurants on the homepage
+        # show a few restaurants on the homepage 
         context["restaurants"] = Restaurant.objects.all()[:6]
+        #randomly select 6 restaurants
+        #Check to see if this works for your larger dataset
+        ids = list(Restaurant.objects.values_list("id", flat=True))
+        if not ids:
+            context["restaurants"] = Restaurant.objects.none()
+            return context
+        random_ids = random.sample(ids, min(len(ids), 6))
+        qs = Restaurant.objects.filter(id__in=random_ids)
+        id_map = {r.id: r for r in qs}
+        context["restaurants"] = [id_map[i] for i in random_ids if i in id_map]
         return context
 
 class RestaurantListView(ListView):

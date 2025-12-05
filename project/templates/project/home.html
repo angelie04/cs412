@@ -5,6 +5,33 @@
 
 {% block content %}
 
-<h1> Welcome to Revize! </h1>
+<div class="container">
+
+    <h1> Welcome to Revize! </h1>
+
+    <h3>Featured Restaurants</h3>
+    {% if restaurants %}
+    <div class="card">
+        {% for r in restaurants %}
+        <div class="card">
+            <h4 style="color: #e85bd9;"><strong>{{ r.name }}</strong></h4>
+            <p>{{ r.address }}</p>
+            <!-- each category has its own badge -->
+            <div class="cuisine">
+                {% for c in r.categories.all %}
+                <span class="cuisine-badge" title="{{ c.name }}">{{ c.name }}</span>
+                {% empty %}
+                <span class="cuisine-badge">No category</span>
+                {% endfor %}
+            </div>
+            {% if r.image %}
+            <img src="{{ r.image.url }}" alt="{{ r.name }}" class="card-image">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
 
 {% endblock %}
