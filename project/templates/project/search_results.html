@@ -1,0 +1,29 @@
+<!-- File: search_results.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 12/7/2025 -->
+<!-- Description: Displays the search results for Restaurant matches -->
+
+{% extends "project/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container py-4">
+    <h1>Results for "{{ request.GET.query }}"</h1>
+    {% if restaurants %}
+    {% for r in restaurants %}
+    <div class="card mb-2 p-2">
+        <h4><strong>{{ r.name }}</strong></h4>
+        <p class="text-muted">{{ r.address }}</p>
+        <div class="d-flex gap-1">
+            {% for c in r.categories.all %}
+            <span class="badge bg-light text-primary border">{{ c.name }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p style="padding: 32px;">No restaurants match your search.</p>
+    {% endif %}
+</div>
+<div class="d-flex justify-content-end mt-3 pt-2" style="padding: 32px;">
+    <a class="btn btn-outline-secondary px-4 py-2" href="{% url 'create_review' %}">Back to search</a>
+</div>
+{% endblock %}

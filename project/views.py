@@ -7,6 +7,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm ## for new User
 from django.urls import reverse
 import random
+from django.db.models import Q
 
 
 # Create your views here.
@@ -79,3 +80,43 @@ class ProfileDetailView(DetailView):
     model = Profile
     template_name = "project/profile_detail.html"
     context_object_name = "profile"
+
+class RestaurantSearchView(ListView):
+    """View class to hanlde searching for restaurants """
+    model = Restaurant
+    template_name = "project/search_results.html"
+    context_object_name = "restaurants"
+
+    def dispatch(self, request, *args, **kwargs):
+        """Override dispatch to check for the presence of the query parameter."""
+        # if query is empty, redirect to search page
+        if 'query' in request.GET and not request.GET.get('query', '').strip():
+            return redirect('search_results')
+        # If no query param present, render a simple search form
+        if not request.GET.get("query"):
+            return render(request, "project/search.html")
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        """Filter restaurants based on the search query."""
+
+        query = self.request.GET.get("query", "").strip()
+        if not query:
+            return Restaurant.objects.none()
+        qs = (
+            Restaurant.objects.filter(
+                Q(name__icontains=query)
+                | Q(address__icontains=query)
+                | Q(categories__name__icontains=query)
+            )
+            .distinct()
+            .prefetch_related("categories")
+        )
+        return qs
+    
+    def get_context_data(self, **kwargs):
+        """Add additional context data for the search results page."""
+
+        ctx = super().get_context_data(**kwargs)
+        ctx["query"] = self.request.GET.get("query", "")
+        return ctx

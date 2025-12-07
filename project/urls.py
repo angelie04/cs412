@@ -15,5 +15,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='project/logout.html'), name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('profile/<int:pk>', ProfileDetailView.as_view(), name='show_profile'), # for the individual profile page
+    path('search/', RestaurantSearchView.as_view(), name='search_results'), # for restaurant search
 
 ]

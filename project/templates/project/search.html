@@ -1,0 +1,15 @@
+<!-- File: search.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 12/7/2025 -->
+<!-- Description: Presents an HTML form with a text area search box as well as a button to submit the search -->
+
+{% load static %}
+{% block content %}
+<div class="container py-4">
+    <h1>Search restaurants</h1>
+    <form method="get" action="{% url 'search_results' %}" class="d-flex gap-2">
+        <input name="query" class="form-control" type="search" placeholder="Search name, address or category"
+            aria-label="Search" required>
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+</div>
+{% endblock %}
