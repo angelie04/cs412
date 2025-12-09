@@ -1,0 +1,72 @@
+<!-- project/restaurant_detail.html -->
+<!-- Angelie Darbouze (angelie@bu.edu) 12/7/25 -->
+<!-- Description: Displays the details of a restaurant, including its reviews -->
+{% extends "project/base.html" %}
+
+{% block content %}
+<div class="card">
+
+    <div class="restaurant-hero"
+        style="background-image: url('{% if restaurant.image %}{{ restaurant.image.url }}{% endif %}');" role="img"
+        aria-label="{{ restaurant.name }}">
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <!-- links to Google Maps, get directions from your location, and  view website -->
+                <h1 class="restaurant-title">{{ restaurant.name }}</h1>
+                {% if restaurant.address %}
+                <p class="restaurant-sub">{{ restaurant.address }}</p>
+                <a style="color: #e85bd9;"
+                    href="https://www.google.com/maps/search/?api=1&query={{ map_query|urlencode }}" target="_blank"
+                    rel="noopener">
+                    Open in Google Maps
+                </a>
+                &nbsp;|&nbsp;
+                <a style="color: #e85bd9;"
+                    href="https://www.google.com/maps/dir/?api=1&destination={{ map_query|urlencode }}" target="_blank"
+                    rel="noopener">Get directions</a>
+                &nbsp;|&nbsp;
+                {% if restaurant.website %}
+                <a style="color: #e85bd9;" href="{{ restaurant.website }}" target="_blank">View Website</a>
+                {% endif %}
+                </p>
+
+                {% endif %}
+
+                <div class="cuisine">
+                    {% for c in restaurant.categories.all %}
+                    <span class="cuisine-badge" title="{{ c.name }}">{{ c.name }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <h3 style="padding: 10px; font-family:'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif ;">Recommended
+        Reviews</h3>
+    <!-- displays the average rating for a restaurant -->
+    <p style=" color:#7a1e73; padding: 10px;"> Overall Rating: {{ avg_rating|floatformat:0|default:"No ratings yet" }} /
+        5 ({{ reviews_count }} reviews)</p>
+    <!-- display all the reviews for a specific restaurant -->
+    {% for review in restaurant.reviews.all %}
+    <div class="review">
+        <h3 class="username">{{ review.user.username }}</h3>
+        <p>Rating: {{ review.rating }} / 5</p>
+        <p>{{ review.comment }}</p>
+        {% if review.images.exists %}
+        <div class="images">
+            {% for image in review.images.all %}
+            <img src="{{ image.image.url }}" alt="Review Image" class="review-image">
+            {% empty %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <p class="date">
+            {{ review.created_at|date:"F j, Y" }}
+        </p>
+    </div>
+    {% empty %}
+    <p>No reviews yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

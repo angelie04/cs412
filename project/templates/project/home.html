@@ -14,8 +14,32 @@
     <div class="card">
         {% for r in restaurants %}
         <div class="card">
-            <h4 style="color: #e85bd9;"><strong>{{ r.name }}</strong></h4>
-            <p>{{ r.address }}</p>
+            <div class="hero-text">
+                <h4 style="color: #e85bd9;"><strong>{{ r.name }}</strong></h4>
+                {% if r.address %}
+                <p class="restaurant-sub" style="color: black;">{{ r.address }}</p>
+                <a style="color: #7a1e73;"
+                    href="https://www.google.com/maps/search/?api=1&query={{ map_query|urlencode }}" target="_blank"
+                    rel="noopener">
+                    Open in Google Maps
+                </a>
+                &nbsp;|&nbsp;
+                <a style="color: #7a1e73;"
+                    href="https://www.google.com/maps/dir/?api=1&destination={{ map_query|urlencode }}" target="_blank"
+                    rel="noopener">Get directions</a>
+                &nbsp;|&nbsp;
+                {% if r.website %}
+                <a style="color: #7a1e73;" href="{{ restaurant.website }}" target="_blank">View Website</a>
+                {% endif %}
+                </p>
+                {% endif %}
+                <p style=" color: gray; padding: 10px;"> 
+                    {% if r.avg_rating %}
+                        Overall Rating: {{ r.avg_rating|floatformat:0 }} / 5 ({{ r.reviews_count }})
+                    {% else %}
+                        Overall Rating: No ratings yet
+                    {% endif %}</p>
+            </div>
             <!-- each category has its own badge -->
             <div class="cuisine">
                 {% for c in r.categories.all %}
@@ -27,6 +51,7 @@
             {% if r.image %}
             <img src="{{ r.image.url }}" alt="{{ r.name }}" class="card-image">
             {% endif %}
+            <a class="write-review" href="{% url 'restaurant_detail' r.id %}"> View</a>
         </div>
         {% endfor %}
     </div>

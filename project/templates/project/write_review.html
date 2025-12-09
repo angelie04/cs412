@@ -1,0 +1,48 @@
+<!-- File: write_review.html -->
+<!-- Author: Angelie Darbouze (angelie@bu.edu), 12/7/2025 -->
+<!-- Description: Displays the form to write a review for a restaurant -->
+
+{% extends "project/base.html" %}
+{% block content %}
+<div class="container py-4">
+    <h1>Write a review for <a style="color: #e85bd9;">{{ restaurant.name }}</a></h1>
+
+    <form method="post" action="" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="mb-3">
+            {{ form.rating.label_tag }}
+            <select name="rating" class="form-select">
+                <option value="">Select a rating</option>
+                {% for i in "12345" %}
+                <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            {{ form.rating.errors }}
+        </div>
+
+
+        <div class="mb-3">
+            {{ form.comment.label_tag }}
+            {{ form.comment }}
+            {{ form.comment.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label>Photos (optional)</label>
+            {{ formset.management_form }}
+            <div class="d-flex gap-3 flex-wrap">
+                {% for f in formset.forms %}
+                <div>
+                    {{ f.image }}
+                    {{ f.image.errors }}
+                </div>
+                {% endfor %}
+            </div>
+            <small class="text-muted">You can upload up to {{ formset.total_form_count }} photos.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit review</button>
+        <a href="{% url 'review' %}" class="btn btn-outline-secondary ms-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

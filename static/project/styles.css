@@ -5,7 +5,7 @@ body {
     background-color: #faf7fc;
     color: #333;
     line-height: 1.6;
-    font-family: arial;
+    font-family: 'Poppins', 'Helvetica Neue';
     font-weight: bold;
 
 }
@@ -146,13 +146,32 @@ nav .logout-form .btn:hover {
     margin-top: 6px;
 }
 
+/* added this for Write Review link */
+.card .write-review {
+    margin-left: auto;
+    align-self: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 6px 10px;
+    border-radius: 6px;
+
+}
+
+.card .write-review:hover,
+.card .write-review:focus {
+    color: #e85bd9;
+    text-decoration: none;
+    background: rgba(232, 91, 217, 0.06);
+}
+
 /* ----- REVIEW BOX ----- */
 .review {
     background-color: #ffffff;
     padding: 15px;
-    border-left: 4px solid #e85bd9;
+    border-left: 4px solid #7a1e73;
     margin-bottom: 15px;
     border-radius: 6px;
+
 }
 
 .review .username {
@@ -161,9 +180,42 @@ nav .logout-form .btn:hover {
 }
 
 .review .date {
+    margin-top: 10px;
+    margin-bottom: 0px;
     color: gray;
     font-size: 14px;
 }
+
+.review .images {
+    /* width: 160px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px; */
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    align-items: flex-start;
+}
+
+.review-hero {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: 430px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 0 auto 18px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+    .review-hero {
+        height: 220px;
+        max-width: 100%;
+    }
+}
+
 
 /* ----- FORMS ----- */
 form {
@@ -203,4 +255,82 @@ footer {
     margin-top: 30px;
     background-color: #7b3fe4;
     color: white;
+}
+
+
+/* restaurant detail hero (large image with overlay title) */
+.restaurant-hero {
+    width: 100%;
+    height: 420px;
+    /* big hero like Yelp */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.restaurant-hero .hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    /* place text at bottom of image */
+    padding: 24px;
+    /* subtle dark gradient so white text is readable */
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.5) 70%);
+}
+
+.hero-text {
+    color: #fff;
+}
+
+.restaurant-title {
+    background: rgba(255, 255, 255, 0.88);
+    margin: 0 0 6px 0;
+    font-size: 36px;
+    line-height: 1;
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+    font-weight: 800;
+}
+
+.restaurant-sub {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 20px;
+}
+
+/* layout for the detail body (simple two-column) */
+.restaurant-detail-body {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    margin-top: 12px;
+}
+
+/* responsive adjustments */
+@media (max-width: 900px) {
+    .restaurant-hero {
+        height: 300px;
+    }
+
+    .restaurant-title {
+        font-size: 28px;
+    }
+
+    .restaurant-detail-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .restaurant-hero {
+        height: 220px;
+    }
+
+    .restaurant-title {
+        font-size: 22px;
+    }
 }

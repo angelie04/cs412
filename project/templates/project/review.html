@@ -2,10 +2,13 @@
 <!-- Angelie Darbouze (angelie@bu.edu) 12/2/25 -->
 <!--Displays a list of all restaurants -->
 {% extends "project/base.html" %}
-
+{% load static %}
 {% block content %}
 
 <h1> Find a restaurant to review </h1>
+<!-- image to display right above search, similar to yelp -->
+<img src="{% static 'project/RevizeWriteReview.png' %}" alt="Person writing a review on a laptop" class="review-hero">
+
 
 {% include "project/search.html" %}
 

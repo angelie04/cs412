@@ -1,0 +1,12 @@
+<!-- project/success_review.html -->
+<!-- Angelie Darbouze (angelie@bu.edu) 12/7/25 -->
+<!--Direct to this page after successful review submission -->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <h1> Thank you for submitting your review! </h1>
+    <a class="btn btn-primary" href="{% url 'home' %}"> Back to Home </a>
+</div>
+{% endblock %}

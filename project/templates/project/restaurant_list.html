@@ -5,6 +5,43 @@
 
 {% block content %}
 
-<h1> Restaurant list </h1>
+
+<main class="container">
+    <!-- Users will be able to sort restaurants based on highest rating, lowest, and alphabetical order -->
+    <form method="get">
+        <label> Sort <i class="bi bi-arrow-down-circle"></i></label>
+        <select name="sort" class="form-select w-auto" onchange="this.form.submit()">
+            <option value="" {% if not request.GET.sort %}selected{% endif %}>Default</option>
+            <option value="rating_desc" {% if request.GET.sort == 'rating_desc' %}selected{% endif %}>Highest Rating
+            </option>
+            <option value="rating_asc" {% if request.GET.sort == 'rating_asc' %}selected{% endif %}>Lowest Rating
+            </option>
+            <option value="name_asc" {% if request.GET.sort == 'name_asc' %}selected{% endif %}>Name: A → Z</option>
+            <option value="name_desc" {% if request.GET.sort == 'name_desc' %}selected{% endif %}>Name: Z → A</option>
+        </select>
+    </form>
+    <div class="card">
+        <!-- Display all the restaurants -->
+        {% for r in restaurants %}
+        <div class="card">
+            <h4 style="color: #e85bd9;"><strong>{{ r.name }}</strong></h4>
+            <p>{{ r.address }}</p>
+            <!-- each category has its own badge -->
+            <div class="cuisine">
+                {% for c in r.categories.all %}
+                <span class="cuisine-badge" title="{{ c.name }}">{{ c.name }}</span>
+                {% empty %}
+                <span class="cuisine-badge">No category</span>
+                {% endfor %}
+            </div>
+            {% if r.image %}
+            <img src="{{ r.image.url }}" alt="{{ r.name }}" class="card-image">
+            {% endif %}
+            <a class="write-review" href="{% url 'restaurant_detail' r.id %}"> View</a>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
 
 {% endblock %}

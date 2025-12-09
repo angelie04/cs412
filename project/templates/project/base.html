@@ -22,7 +22,7 @@
             <ul>
                 <a href="{% url 'home' %}">Revize <i class="bi bi-house-door-fill"></i></a>
                 <a href="{% url 'restaurant_list' %}">Restaurants <i class="bi bi-restaurant-fill"></i></a>
-                <a href="{% url 'create_review' %}">Write a Review <i class="bi bi-restaurant-fill"></i></a>
+                <a href="{% url 'review' %}">Write a Review <i class="bi bi-restaurant-fill"></i></a>
             </ul>
             {% if request.user.is_authenticated %}
             <form action="{% url 'logout' %}" method="post" class="d-inline logout-form">
