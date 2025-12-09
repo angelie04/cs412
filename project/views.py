@@ -10,8 +10,7 @@ import random
 from django.db.models import Q, Avg, Count
 from django.forms import inlineformset_factory # for formsets
 from django.db import transaction
-
-
+from .mixins import ProfileLoginRequiredMixin # mixin for profile login required
 
 
 # Create your views here.
@@ -65,8 +64,8 @@ class ReviewView(TemplateView):
     
     model = Review
     template_name = "project/review.html"
-    
-class WriteReview(CreateView):
+
+class WriteReview(ProfileLoginRequiredMixin, CreateView):
     """View to create a review for a restaurant."""
     
     model = Review
@@ -153,13 +152,26 @@ class SignUpView(CreateView):
         return redirect(self.get_success_url())
     def get_success_url(self):
         return reverse('home')  # Redirect to home page after sign up
-    
-class ProfileDetailView(DetailView):
+
+class ProfileDetailView(ProfileLoginRequiredMixin, DetailView):
     """View to display individual user profile details."""
     
     model = Profile
     template_name = "project/profile_detail.html"
     context_object_name = "profile"
+
+class UpdateProfileView(ProfileLoginRequiredMixin, UpdateView): # new
+    """This view class updates an existing profile
+    (1) display the HTML form to user (GET)
+    (2) process the form submission and store the updated profile object (POST)
+    """
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'project/profile_edit.html'
+
+    def get_object(self):
+        # Return the Profile associated with the logged-in user.
+        return Profile.objects.filter(revize_user=self.request.user).first()
 
 class RestaurantSearchView(ListView):
     """View class to hanlde searching for restaurants """

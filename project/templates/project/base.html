@@ -25,10 +25,23 @@
                 <a href="{% url 'review' %}">Write a Review <i class="bi bi-restaurant-fill"></i></a>
             </ul>
             {% if request.user.is_authenticated %}
-            <form action="{% url 'logout' %}" method="post" class="d-inline logout-form">
-                {% csrf_token %}
-                <button type="submit" class="btn">Logout</button>
-            </form>
+            <div class="nav-actions">
+                <!-- Showing profile avatar if available -->
+                {% if profile and profile.profile_image %}
+                <a href="{% url 'profile_detail' profile.pk %}" class="nav-avatar-link">
+                    <img src="{{ profile.profile_image.url }}" alt="{{ request.user.username }}" class="nav-avatar">
+                </a>
+                {% elif request.user.revize_profile.profile_image.url %}
+                <a href="{% url 'profile_detail' request.user.revize_profile.pk %}" class="nav-avatar-link">
+                    <img src="{{ request.user.revize_profile.profile_image.url }}" alt="{{ request.user.username }}"
+                        class="nav-avatar">
+                </a>
+                {% endif %}
+                <form action="{% url 'logout' %}" method="post" class="d-inline logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">Logout</button>
+                </form>
+            </div>
             {% else %}
             <a class="btn btn-outline-primary btn-sm me-2" href="{% url 'login' %}">Login</a>
             <a class="btn btn-outline-primary btn-sm" href="{% url 'signup' %}">Sign Up</a>

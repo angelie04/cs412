@@ -21,7 +21,14 @@
         {% if r.image %}
         <img src="{{ r.image.url }}" alt="{{ r.name }}" class="card-image">
         {% endif %}
+        <!-- user must be logged in to write a review -->
+        {% if user.is_authenticated %}
         <a class="write-review" href="{% url 'write_review' r.id %}"> Write Review</a>
+        {% else %}
+        <a class="write-review" href="{% url 'login' %}?next={% url 'write_review' r.id %}">
+            Log in to write a review!
+        </a>
+        {% endif %}
     </div>
     {% endfor %}
     {% else %}

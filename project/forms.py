@@ -40,3 +40,10 @@ class SignUpForm(UserCreationForm):
             },
         )
         return user
+
+class UpdateProfileForm(forms.ModelForm):
+    """Form for updating Profile instances"""
+
+    class Meta:
+        model = Profile
+        fields = ["display_name", "profile_image"]
