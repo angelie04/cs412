@@ -20,4 +20,6 @@ urlpatterns = [
     path('search/', RestaurantSearchView.as_view(), name='search_results'), # for restaurant search
     path('review/success/', ReviewSuccessView.as_view(), name='success_review'), # review success page
     path('restaurants/<int:pk>/', RestaurantDetailView.as_view(), name='restaurant_detail'), # restaurant detail page
+    path('profile/delete/', ProfileDeleteView.as_view(), name='profile_delete'), # profile delete page
+    path("review/<int:pk>/delete/", ReviewDeleteView.as_view(), name="review_delete"),
 ]

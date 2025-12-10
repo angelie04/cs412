@@ -29,7 +29,7 @@ class SignUpForm(UserCreationForm):
         fields = ("username", "display_name", "password1", "password2", "profile_image")
 
     def save(self, commit=True):
-        user = super().save(commit=commit)  # creates the User
+        user = super().save(commit=True)  # Force user to save
         # create/update the Profile linked to this user
         Profile.objects.update_or_create(
             revize_user=user,

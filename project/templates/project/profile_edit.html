@@ -8,4 +8,18 @@
 
 {% block content %}
 <h1> Edit your profile page</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+</form>
+<div class="profile-actions">
+    <!-- Save button -->
+    <button type="submit" form="edit-profile-form" class="btn btn-primary">Save Changes</button>
+
+    <!-- Cancel link -->
+    <a href="{% url 'profile_detail' profile.id %}" class="btn btn-outline-secondary ms-2">Cancel</a>
+
+    <!-- delete form  -->
+    <button><a href="{% url 'profile_delete'  %}"><strong>Delete Profile</strong></a></button>
+</div>
 {% endblock %}

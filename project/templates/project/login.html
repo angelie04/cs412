@@ -6,7 +6,7 @@
 {% load static %}
 
 {% block content %}
-
+<h1> Login to your account </h1>
 <form action=" {% url 'login' %}" method="post">
     {% csrf_token %}
     {{form}}

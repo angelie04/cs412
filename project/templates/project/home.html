@@ -33,12 +33,7 @@
                 {% endif %}
                 </p>
                 {% endif %}
-                <p style=" color: gray; padding: 10px;"> 
-                    {% if r.avg_rating %}
-                        Overall Rating: {{ r.avg_rating|floatformat:0 }} / 5 ({{ r.reviews_count }})
-                    {% else %}
-                        Overall Rating: No ratings yet
-                    {% endif %}</p>
+
             </div>
             <!-- each category has its own badge -->
             <div class="cuisine">

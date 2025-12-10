@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
@@ -18,6 +19,16 @@ class Profile(models.Model):
     def __str__(self):
         """ return a string representation of the Profile model"""
         return self.display_name
+    
+    def get_absolute_url(self): 
+        """ returns the URL to access a particular profile instance"""
+        return reverse('profile_detail', kwargs={'pk': self.pk})
+    
+    def get_all_reviews(self):
+        """return a queryset of reviews about this profile"""
+        # use object manager to retrieve reviews about this profile
+        reviews = Review.objects.filter(user=self.revize_user)
+        return reviews
 
 class Restaurant(models.Model):
     """Model to store restaurant info"""

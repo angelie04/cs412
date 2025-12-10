@@ -1,0 +1,21 @@
+<!-- project/profile_delete.html -->
+<!-- Angelie Darbouze (angelie@bu.edu) 12/9/25 -->
+<!-- Delete profile -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h1>Delete Profile?</h1>
+<p>Are you sure you want to delete your profile? </p>
+<div class="delete-form">
+    <!-- want to cancel the process of your profile -->
+    <form action="{% url 'profile_detail' profile.pk %}" method="GET">
+        <button type="submit" style="color: #a13163;">Cancel</button>
+    </form>
+    <!-- confirm delete post -->
+    <form method="post" action="{% url 'profile_delete' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete profile</button>
+    </form>
+</div>
+{% endblock %}

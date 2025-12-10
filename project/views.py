@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth import logout
 from django.views.generic import *
 from project.models import *
 from django.shortcuts import redirect, render, get_object_or_404
@@ -11,11 +12,13 @@ from django.db.models import Q, Avg, Count
 from django.forms import inlineformset_factory # for formsets
 from django.db import transaction
 from .mixins import ProfileLoginRequiredMixin # mixin for profile login required
+from django.core.exceptions import PermissionDenied
+
 
 
 # Create your views here.
 
-class HomeView(TemplateView):
+class HomeView(ProfileLoginRequiredMixin, TemplateView):
     """View for the home page."""
 
     template_name = "project/home.html"
@@ -36,7 +39,7 @@ class HomeView(TemplateView):
         context["restaurants"] = [id_map[i] for i in random_ids if i in id_map]
         return context
 
-class RestaurantListView(ListView):
+class RestaurantListView(ProfileLoginRequiredMixin, ListView):
     """View to list all restaurants."""
     
     model = Restaurant
@@ -59,7 +62,7 @@ class RestaurantListView(ListView):
         # default ordering can be set here if desired
         return qs
 
-class ReviewView(TemplateView):
+class ReviewView(ProfileLoginRequiredMixin, TemplateView):
     """View to render the review page."""
     
     model = Review
@@ -133,6 +136,18 @@ class ReviewSuccessView(TemplateView):
     """View for review submission success page."""
     
     template_name = "project/success_review.html"
+
+class ReviewDeleteView(ProfileLoginRequiredMixin, DeleteView):
+    model = Review
+
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if obj.user != self.request.user:
+            raise PermissionDenied()
+        return obj
+    def get_success_url(self):
+        return reverse('profile_detail', kwargs={'pk': self.request.user.revize_profile.pk})
     
 class UserLogoutView(TemplateView):
     """View for logout confirmation page."""
@@ -147,6 +162,15 @@ class SignUpView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        # Ensure Profile is created
+        Profile.objects.get_or_create(
+        revize_user=self.object,
+        defaults={
+            "username": self.object.username,
+            "display_name": form.cleaned_data.get("display_name") or self.object.username,
+            "profile_image": form.cleaned_data.get("profile_image"),
+        },
+    )
         # Log the user in after successful sign up
         login(self.request, self.object)
         return redirect(self.get_success_url())
@@ -160,6 +184,17 @@ class ProfileDetailView(ProfileLoginRequiredMixin, DetailView):
     template_name = "project/profile_detail.html"
     context_object_name = "profile"
 
+    def get_object(self, queryset=None):
+        return get_object_or_404(Profile, revize_user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        # used my model helper to get reviews by this user
+        ctx["user_reviews"] = self.object.get_all_reviews()
+        return ctx
+    
+
+
 class UpdateProfileView(ProfileLoginRequiredMixin, UpdateView): # new
     """This view class updates an existing profile
     (1) display the HTML form to user (GET)
@@ -168,10 +203,43 @@ class UpdateProfileView(ProfileLoginRequiredMixin, UpdateView): # new
     model = Profile
     form_class = UpdateProfileForm
     template_name = 'project/profile_edit.html'
+    context_object_name = 'profile'   
 
     def get_object(self):
         # Return the Profile associated with the logged-in user.
         return Profile.objects.filter(revize_user=self.request.user).first()
+    
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['profile'] = self.get_object()
+        return ctx
+    
+    def get_success_url(self):
+        # after successful update, redirect to profile detail page
+        return reverse('profile_detail', kwargs={'pk': self.object.pk})
+
+class ProfileDeleteView(ProfileLoginRequiredMixin, DeleteView):
+    """View to handle profile deletion."""
+
+    model = Profile
+    template_name = "project/profile_delete.html"
+
+    def get_object(self, queryset=None):
+        # only allow deleting the profile that belongs to the current user
+        return get_object_or_404(Profile, revize_user=self.request.user)
+
+    def get_success_url(self):
+        return reverse('home')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        #remove profile
+        self.object.delete()
+        # logout user
+        logout(request)
+        # delete user account
+        request.revize_user.delete()
+        return redirect(self.get_success_url())
 
 class RestaurantSearchView(ListView):
     """View class to hanlde searching for restaurants """
@@ -213,7 +281,7 @@ class RestaurantSearchView(ListView):
         ctx["query"] = self.request.GET.get("query", "")
         return ctx
     
-class RestaurantDetailView(DetailView):
+class RestaurantDetailView(ProfileLoginRequiredMixin, DetailView):
     """View to display details of a single Restaurant"""
     model = Restaurant
     template_name = "project/restaurant_detail.html"

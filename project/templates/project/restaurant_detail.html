@@ -47,6 +47,7 @@
     <!-- displays the average rating for a restaurant -->
     <p style=" color:#7a1e73; padding: 10px;"> Overall Rating: {{ avg_rating|floatformat:0|default:"No ratings yet" }} /
         5 ({{ reviews_count }} reviews)</p>
+    <a href="{% url 'write_review' restaurant.pk %}" class="btn btn-primary mb-3">Write a Review</a>
     <!-- display all the reviews for a specific restaurant -->
     {% for review in restaurant.reviews.all %}
     <div class="review">

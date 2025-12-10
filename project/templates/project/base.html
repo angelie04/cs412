@@ -19,11 +19,16 @@
 <body>
     <header>
         <nav class="navbar">
-            <ul>
-                <a href="{% url 'home' %}">Revize <i class="bi bi-house-door-fill"></i></a>
+            <div class="nav-left">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'project/revize.png' %}" class="nav-logo-img" alt="Revize Logo">
+                </a>
+            </div>
+            <div class="nav-center">
                 <a href="{% url 'restaurant_list' %}">Restaurants <i class="bi bi-restaurant-fill"></i></a>
                 <a href="{% url 'review' %}">Write a Review <i class="bi bi-restaurant-fill"></i></a>
-            </ul>
+            </div>
+
             {% if request.user.is_authenticated %}
             <div class="nav-actions">
                 <!-- Showing profile avatar if available -->
@@ -31,9 +36,9 @@
                 <a href="{% url 'profile_detail' profile.pk %}" class="nav-avatar-link">
                     <img src="{{ profile.profile_image.url }}" alt="{{ request.user.username }}" class="nav-avatar">
                 </a>
-                {% elif request.user.revize_profile.profile_image.url %}
-                <a href="{% url 'profile_detail' request.user.revize_profile.pk %}" class="nav-avatar-link">
-                    <img src="{{ request.user.revize_profile.profile_image.url }}" alt="{{ request.user.username }}"
+                {% elif request.user.profile.profile_image.url %}
+                <a href="{% url 'profile_detail' request.user.profile.pk %}" class="nav-avatar-link">
+                    <img src="{{ request.user.profile.profile_image.url }}" alt="{{ request.user.username }}"
                         class="nav-avatar">
                 </a>
                 {% endif %}
@@ -43,8 +48,10 @@
                 </form>
             </div>
             {% else %}
-            <a class="btn btn-outline-primary btn-sm me-2" href="{% url 'login' %}">Login</a>
-            <a class="btn btn-outline-primary btn-sm" href="{% url 'signup' %}">Sign Up</a>
+            <div class="nav-right">
+                <a class="btn btn-outline-primary btn-sm me-2" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-outline-primary btn-sm" href="{% url 'signup' %}">Sign Up</a>
+            </div>
             {% endif %}
         </nav>
     </header>

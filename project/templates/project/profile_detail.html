@@ -7,24 +7,54 @@
 {% block content %}
 
 <div class="container">
-  <div class="profile-card">
-    <div class="profile-card__media">
-      {% load static %}
-      {% if profile.profile_image %}
-        <img src="{{ profile.profile_image.url }}" alt="{{ profile.display_name }}" class="profile-card__avatar">
-      {% else %}
-        <img src="{% static 'project/placeholder.webp' %}" alt="No avatar" class="profile-card__avatar">
-      {% endif %}
-    </div>
+    <div class="profile-card profile-card--vertical">
+        {% load static %}
+        <div class="profile-card__media">
+            {% if profile and profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="{{ profile.display_name }}" class="profile-card__avatar">
+            {% else %}
+            <img src="{% static 'project/placeholder.webp' %}" alt="No avatar" class="profile-card__avatar">
+            {% endif %}
+        </div>
 
-    <div class="profile-card__body">
-      <h2 class="profile-card__name">{{ profile.display_name }}</h2>
-      <p class="profile-card__handle">@{{ profile.revize_user.username }}</p>
-      {% if user.is_authenticated and user == profile.revize_user %}
-        <a href="{% url 'profile_edit' %}" class="btn btn-outline-primary">Edit profile</a>
-      {% endif %}
+        <div class="profile-card__body">
+            <h2 class="profile-card__name">{{ profile.display_name }}</h2>
+            <p class="profile-card__handle">@{{ profile.revize_user.username }}</p>
+
+            {% if user.is_authenticated and user == profile.revize_user %}
+            <a href="{% url 'profile_edit' %}" class="btn btn-outline-primary">Edit profile</a>
+            {% endif %}
+        </div>
     </div>
-  </div>
 </div>
+<div class="container user-reviews">
+    <h3>Your reviews</h3>
 
-{% endblock %}
+    {% if user_reviews.exists %}
+    {% for review in user_reviews %}
+    <div class="review">
+        <p class="date">{{ review.created_at|date:"F j, Y" }}</p>
+        <p>Rating: {{ review.rating }} / 5</p>
+        {% if review.comment %}<p>{{ review.comment }}</p>{% endif %}
+
+        {% if review.review_images.all %}
+        <div class="review-images">
+            {% for img in review.review_images.all %}
+            <img src="{{ img.image.url }}" alt="review image" class="review-image">
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if user.is_authenticated and review.user == user %}
+        <form method="post" action="{% url 'review_delete' review.pk %}" style="display:inline"
+              onsubmit="return confirm('Delete this review?');">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No reviews yet.</p>
+    {% endif %}
+
+    {% endblock %}

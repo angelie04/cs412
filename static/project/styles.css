@@ -7,6 +7,7 @@ body {
     line-height: 1.6;
     font-family: 'Poppins', 'Helvetica Neue';
     font-weight: bold;
+    padding-top: 80px;
 
 }
 
@@ -20,25 +21,66 @@ h3 {
 
 /* ----- NAVBAR ----- */
 .navbar {
-    background-color: #7b3fe4;
-    /* purple */
+    background: rgba(255, 255, 255, 0.05);
+    /* semi-transparent navbar */
+    backdrop-filter: blur(10px);
+    /* blur effect for background */
+    -webkit-backdrop-filter: blur(10px);
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+
+}
+
+.nav-left {
+    z-index: 2;
+}
+
+.nav-right {
+    z-index: 2;
+}
+
+/* center some contents of navbar */
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    z-index: 1;
 }
 
 .navbar .logo {
     font-size: 24px;
     font-weight: bold;
-    color: white;
+    color: #7b3fe4;
+}
+
+.nav-center a {
+    color: #9B3FD6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-center a:hover {
+    color: #f7d8f5;
 }
 
 .navbar a {
-    color: white;
+    color: #9B3FD6;
     margin-left: 18px;
     text-decoration: none;
     font-weight: bold;
+    transition: 0.2s ease;
+
 }
 
 .navbar a:hover {
@@ -58,7 +100,6 @@ nav .logout-form {
 
 nav .logout-form .btn {
     background-color: #e85bd9;
-    /* match .btn */
     color: #fff;
     padding: 8px 14px;
     border-radius: 6px;
@@ -69,19 +110,43 @@ nav .logout-form .btn {
 nav .logout-form .btn:hover {
     background-color: #d149c1;
 }
+
 /* avatar in navbar */
-.nav-actions { gap: 8px; }
-.nav-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: inline-block;
-  margin-right: 10px;
-  margin-left: 10px;
-  border: 2px solid rgba(255,255,255,0.9);
+.nav-actions {
+    gap: 8px;
+    display: flex;
+    align-items: center;
 }
-.nav-avatar-link { display:inline-block; line-height:0; }
+
+.nav-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.nav-avatar-link {
+    display: inline-block;
+    line-height: 0;
+}
+
+.nav-logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+
+    opacity: 0.9;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.nav-logo-img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
 
 /* ----- BUTTONS ----- */
 .btn {
@@ -98,6 +163,8 @@ nav .logout-form .btn:hover {
 .btn:hover {
     background-color: #d149c1;
 }
+
+
 
 /* ----- PAGE CONTAINER ----- */
 .container {
@@ -350,34 +417,70 @@ footer {
 
 /* Profile card */
 .profile-card {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  background: #fff;
-  padding: 18px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  max-width: 720px;
-  margin: 18px auto;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    background: #fff;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    max-width: 720px;
+    margin: 18px auto;
 }
 
 .profile-card__avatar {
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid rgba(123,63,228,0.12);
-  flex: 0 0 110px;
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid rgba(123, 63, 228, 0.12);
+    flex: 0 0 110px;
+}
+
+.profile-card--vertical {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    gap: 12px;
+}
+
+.profile-card--vertical .profile-card__avatar {
+    width: 140px;
+    height: 140px;
+    flex: 0 0 140px;
+    margin: 0 auto;
+    display: block;
+}
+
+.profile-card--vertical .profile-card__body {
+    display: block;
+    padding: 6px 12px;
 }
 
 .profile-card__name {
-  margin: 0 0 6px 0;
-  font-size: 22px;
-  color: #111;
+    margin: 0 0 6px 0;
+    font-size: 22px;
+    color: #111;
+    padding: 10px;
 }
 
 .profile-card__handle {
-  margin: 0 0 12px 0;
-  color: #666;
-  font-size: 14px;
+    margin: 0 0 12px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 12px;
+}
+
+/* makes sure delete button is red */
+.profile-actions .btn-delete {
+    background-color: #c82333;
+    /* Bootstrap danger tone fallback */
+    border-color: #bd2130;
+    color: #fff;
 }
